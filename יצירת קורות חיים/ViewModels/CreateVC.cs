@@ -21,6 +21,14 @@ namespace יצירת_קורות_חיים.ViewModels
 
         private ObservableCollection<object> toSelectIde;
 
+        private ObservableCollection<string> citys;
+
+        public ObservableCollection<string> Citys
+        {
+            get { return citys; }
+            set { citys = value; }
+        }
+
         public ObservableCollection<object> ToSelectIde
         {
             get { return toSelectIde; }
@@ -103,6 +111,7 @@ namespace יצירת_קורות_חיים.ViewModels
             RemovEducation = new RelayCommand(FuncRemoveEducation);
             AddProject = new RelayCommand(FuncAddProject);
             RemovProject = new RelayCommand(FuncRemovProject);
+            //Citys = new ObservableCollection<string>();
             GetCityFromXml();
         }
 
@@ -114,7 +123,8 @@ namespace יצירת_קורות_חיים.ViewModels
             using (StringReader reader = new StringReader(text))
             {
                 var test = (CityDada)serializer.Deserialize(reader);
-                 var c =   test.ROW.Where(_ => _.לשכה == "בית שמש ").ToList();
+                //var c =   test.ROW.Where(_ => _.לשכה == "בית שמש ").ToList();
+                Citys = new ObservableCollection<string>(test.ROW.Select(_ => _.שםישוב).ToList());
              
             }
         }
