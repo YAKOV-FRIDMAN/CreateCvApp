@@ -25,19 +25,27 @@
     <Grid Margin="4">
         <syncfusion:SfNavigationDrawer
             FlowDirection="RightToLeft"
-        x:Name="navigationDrawer"
-        DisplayMemberPath="Name"
-        DisplayMode="Compact"
-        IconMemberPath="Icon"
-            
+            x:Name="navigationDrawer"
+            DisplayMemberPath="Name"
+            DisplayMode="Compact"
+            IconMemberPath="Icon"
+                
             ItemsSource="{Binding Categories}"
-        SelectedItem="{Binding CategorySelectedItem}">
+        SelectedItem="{Binding CategorySelectedItem}"  >
+            <!--<syncfusion:SfNavigationDrawer.DrawerHeaderView >
+                <DataTemplate >
+                    <TextBlock
+                        FontWeight="Bold"
+                        Foreground="Black"
+                        Text="{Binding Name}"/>
+                </DataTemplate>
+            </syncfusion:SfNavigationDrawer.DrawerHeaderView>-->
             <syncfusion:SfNavigationDrawer.ToggleButtonContentTemplate>
                 <DataTemplate>
                     <TextBlock
                         VerticalAlignment="Center"
-                        FontWeight="Bold" Margin="5,0,0,0"
-                        Text="Explorer" />
+                        FontWeight="Bold" Margin="10,0,0,0"
+                        Text="Smart VC" />
                 </DataTemplate>
             </syncfusion:SfNavigationDrawer.ToggleButtonContentTemplate>
             <interaction:Interaction.Triggers>
@@ -46,7 +54,7 @@
                 </interaction:EventTrigger>
             </interaction:Interaction.Triggers>
             <syncfusion:SfNavigationDrawer.FooterItems>
-                <syncfusion:NavigationItem Header="Settings">
+                <syncfusion:NavigationItem FontWeight="Bold" Header="Settings">
                     <syncfusion:NavigationItem.Icon>
                         <Path
                         Width="16"
@@ -65,13 +73,15 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <UserControl>
+                    <UserControl
+                        Background="WhiteSmoke">
                         <TextBlock
                             Margin="10"
                             FontFamily="SegoeUI-Semibold"
                             FontSize="14"
                             FontWeight="Medium"
-                            Text="Category 1" />
+                            HorizontalAlignment="Left"
+                            Text="בית" />
                     </UserControl>
                     <UserControl x:Name="contentView" Grid.Row="1" />
                 </Grid>

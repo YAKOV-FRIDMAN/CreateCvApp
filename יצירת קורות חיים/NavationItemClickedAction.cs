@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Xaml.Behaviors;
 using Syncfusion.UI.Xaml.NavigationDrawer;
@@ -24,19 +25,21 @@ namespace יצירת_קורות_חיים
 
             var pagename = args.Item.Header.ToString();
 
+            //MessageBox.Show("אתה בטוח שאתב רוצה לעזור", "השינוים לא ישמרו", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+
             if (pagename == "בית")
             {
                 userControl = new HomeControl();
             }
-            if (pagename == "יצירת קורות חיים")
+            else if (pagename == "יצירת קורות חיים")
             {
                 userControl = new CreatesVCControl();
             }
-            if (pagename == "תבנית חיים")
+            else if (pagename == "תבנית חיים")
             {
                 userControl = new LifePattern();
             }
-            if (pagename == "יצירת אתר תדמית")
+            else if (pagename == "יצירת אתר תדמית")
             {
                 userControl = new CreatesWebSiteVC();
             }
@@ -44,7 +47,8 @@ namespace יצירת_קורות_חיים
             {
                 (((this.Target as Grid).Children[0] as UserControl).Content as TextBlock).Text = string.Empty;
             }
-           ((this.Target as Grid).Children[1] as UserControl).Content = userControl;
+             (((this.Target as Grid).Children[0] as UserControl).Content as TextBlock).Text = pagename;
+            ((this.Target as Grid).Children[1] as UserControl).Content = userControl;
         }
     }
 }

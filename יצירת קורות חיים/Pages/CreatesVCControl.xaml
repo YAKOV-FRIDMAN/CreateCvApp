@@ -164,7 +164,8 @@
                            </syncfusion:SfTextInputLayout.LeadingView>
                            <TextBox
                                
-                                    MaxLength="15" Text="{Binding DataContext.School, Mode=TwoWay, UpdateSourceTrigger=Default}"
+                                    MaxLength="15"
+                               Text="{Binding Job, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                    />
                        
                        </syncfusion:SfTextInputLayout>
@@ -182,6 +183,7 @@
                            </syncfusion:SfTextInputLayout.LeadingView>
                            <TextBox
                                     MaxLength="15"
+                               Text="{Binding Role, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                    />
                        
                        </syncfusion:SfTextInputLayout>
@@ -233,7 +235,11 @@
                                 Grid.Column="1"
                                 
                                 Background="White" BorderBrush="Gray" BorderThickness="1.5,1.5,1.5,1.5" CornerRadius="5,5,5,5">
-                                <syncfusion:SfDatePicker></syncfusion:SfDatePicker>
+                                <DatePicker
+                                    BorderBrush="Transparent"
+                                    SelectedDate="{Binding Start, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    
+                                </DatePicker>
                             </Border>
                             <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Gray" Margin="13,2,10,0" Text="מתי התחלת לעבוד"/>
                         </Grid>
@@ -303,8 +309,14 @@
                                 Grid.Column="1"
                                 
                                 Background="White" BorderBrush="Gray" BorderThickness="1.5,1.5,1.5,1.5" CornerRadius="5,5,5,5">
-                                <syncfusion:SfDatePicker></syncfusion:SfDatePicker>
+                                <DatePicker
+                                      BorderBrush="Transparent"
+                                   SelectedDate="{Binding Finish , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    >
+
+                                </DatePicker>
                             </Border>
+                            <!--<DatePicker SelectedDate="{Binding Start , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>-->
                             <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Gray" Margin="13,2,10,0" Text="מתי סיימת לעבוד"/>
                         </Grid>
                 
@@ -317,7 +329,7 @@
                                 Height="40" Width="40"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Command="{Binding DataContext.RemovEducation , 
+                                Command="{Binding DataContext.RemoveWorkExperience , 
                                                RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                            CommandParameter="{Binding}"
                            
@@ -677,6 +689,38 @@
                     <syncfusion:SfTextInputLayout
                           Grid.Row="1"
                           Grid.Column="1"
+                          HelperText="באיזה מדינה אתה גר"
+                          Margin="0,20,0,0" 
+                         LeadingViewPosition="Outside" 
+                         Hint="מדינה"
+                        >
+                        <syncfusion:SfTextInputLayout.LeadingView>
+                            <materialDesign:PackIcon
+                                Kind="Company"/>
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <syncfusion:SfTextBoxExt
+                             MaxLength="15"
+                               ShowDropDownButton="True"
+                              TextHighlightMode="MultipleOccurrence"
+                            AutoCompleteMode="SuggestAppend"
+                            SuggestionMode="StartsWithCaseSensitive"
+                            AutoCompleteSource="{Binding Countries}"
+                             Text="{Binding PersonalInformation.Country}"
+                            >
+                            <syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                                <DataTemplate>
+                                    <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="No Results Found" />
+                                </DataTemplate>
+                            </syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                        </syncfusion:SfTextBoxExt>
+
+                    </syncfusion:SfTextInputLayout> 
+                    <syncfusion:SfTextInputLayout
+                          Grid.Row="2"
+                          Grid.Column="0"
                           HelperText="הכנס כתובת מגורים"
                           Margin="0,20,0,0" 
                          LeadingViewPosition="Outside" 
@@ -693,6 +737,7 @@
                             AutoCompleteMode="SuggestAppend"
                             SuggestionMode="StartsWithCaseSensitive"
                             AutoCompleteSource="{Binding Citys}"
+                            Text="{Binding PersonalInformation.Adderss}"
                             >
                             <syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
                                 <DataTemplate>
@@ -706,23 +751,6 @@
                         </syncfusion:SfTextBoxExt>
 
                     </syncfusion:SfTextInputLayout>
-                    <syncfusion:SfTextInputLayout
-                          Grid.Row="2"
-                          Grid.Column="0"
-                          HelperText="באיזה מדינה אתה גר"
-                          Margin="0,20,0,0" 
-                         LeadingViewPosition="Outside" 
-                         Hint="מדינה"
-                        >
-                        <syncfusion:SfTextInputLayout.LeadingView>
-                            <materialDesign:PackIcon
-                                Kind="Company"/>
-                        </syncfusion:SfTextInputLayout.LeadingView>
-                        <syncfusion:SfTextBoxExt
-                             MaxLength="15"
-                            />
-
-                    </syncfusion:SfTextInputLayout> 
                     <syncfusion:SfTextInputLayout
                           Grid.Row="2"
                           Grid.Column="1"
@@ -841,7 +869,7 @@
                          Height="40" Width="40"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"   
-                         Command="{Binding AddEducation}" BorderBrush="Transparent"  Background="{x:Null}"
+                         Command="{Binding AddWorkExperience}" BorderBrush="Transparent"  Background="{x:Null}"
                           >
                         <materialDesign:PackIcon
                             Width="30" Height="30"
@@ -849,7 +877,7 @@
                     </Button>
                     </Grid>
                     <ItemsControl Grid.Row="1"
-                                  ItemsSource="{Binding Educations}"
+                                  ItemsSource="{Binding WorkExperiences}"
                                   ItemTemplate="{DynamicResource WorkingExperience}">
 
                         <i:Interaction.Behaviors>
@@ -900,9 +928,25 @@
                             <materialDesign:PackIcon
                                 Kind="School"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
-                        <TextBox
+                        <syncfusion:SfTextBoxExt
                              MaxLength="15"
-                            />
+                             ShowDropDownButton="True"
+                              TextHighlightMode="MultipleOccurrence"
+                            AutoCompleteMode="SuggestAppend"
+                            SuggestionMode="StartsWithCaseSensitive"
+                            AutoCompleteSource="{Binding Schools}"
+                            Text="{Binding Education.School}"
+                            >
+                            <syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                                <DataTemplate>
+                                    <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="No Results Found" />
+                                </DataTemplate>
+                            </syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+
+                        </syncfusion:SfTextBoxExt>
 
                     </syncfusion:SfTextInputLayout>
                     <syncfusion:SfTextInputLayout
@@ -919,10 +963,11 @@
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
                              MaxLength="15"
+                            Text="{Binding Education.TypeOfStudy}"
                             />
 
                     </syncfusion:SfTextInputLayout>
-                    <syncfusion:SfTextInputLayout
+                    <!--<syncfusion:SfTextInputLayout
                           Grid.Row="1"
                           Grid.Column="0"
                           HelperText="מתי התחלת ללימוד"
@@ -936,10 +981,52 @@
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
                              MaxLength="15"
+                            Text="{Binding Education.Start , Mode=TwoWay }"
                             />
 
-                    </syncfusion:SfTextInputLayout>
-                    <syncfusion:SfTextInputLayout
+                    </syncfusion:SfTextInputLayout>-->
+                    <Grid
+                            Grid.Row="1"
+                          Grid.Column="0"
+                            Margin="0,20,0,15" 
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon
+                                Grid.Column="0"
+                                Width="25"
+                                Height="25"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Foreground="Gray"
+                                       Kind="DateRange"/>
+                        <Border
+                                
+                                
+                                Padding="10"
+                                Grid.Column="1"
+                                
+                                Background="White" BorderBrush="Gray" BorderThickness="1.5,1.5,1.5,1.5" CornerRadius="5,5,5,5">
+                            <DatePicker
+                                  BorderBrush="Transparent"
+                                   SelectedDate="{Binding Education.Start , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    >
+
+                            </DatePicker>
+                        </Border>
+                        <!--<DatePicker SelectedDate="{Binding Start , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>-->
+                        <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Gray" Margin="13,2,10,0" Text="מתי התחלת ללימוד"/>
+                    </Grid>
+
+
+                    <!--<syncfusion:SfTextInputLayout
                           Grid.Row="1"
                           Grid.Column="1"
                           HelperText="מתי סיימת ללימוד"
@@ -955,7 +1042,49 @@
                              MaxLength="15"
                             />
 
-                    </syncfusion:SfTextInputLayout>
+                    </syncfusion:SfTextInputLayout>-->
+                    <Grid
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="0,20,0,15" 
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:PackIcon
+                                Grid.Column="0"
+                                Width="25"
+                                Height="25"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Foreground="Gray"
+                                       Kind="Timeline"/>
+                        <Border
+                                
+                                
+                                Padding="10"
+                                Grid.Column="1"
+                                
+                                Background="White" BorderBrush="Gray" BorderThickness="1.5,1.5,1.5,1.5" CornerRadius="5,5,5,5">
+                            <DatePicker
+                                  BorderBrush="Transparent"
+                              
+                                   SelectedDate="{Binding Education.Finish , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    >
+
+                            </DatePicker>
+                        </Border>
+                        <!--<DatePicker SelectedDate="{Binding Start , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>-->
+                        <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Gray" Margin="13,2,10,0" Text="מתי סיימת ללימוד"/>
+                    </Grid>
+
+
                 </Grid>
 
             </syncfusion:WizardPage>
@@ -1001,7 +1130,7 @@
                            
                              MultiSelectMode="Token"
                              SearchItemPath="ProgrammingLanguages"
-                             SelectedItems="{Binding ToSelectedItem, Mode=TwoWay}"
+                             SelectedItems="{Binding ProfessionalKnowledge.ProgrammingLanguages, Mode=TwoWay}"
                              ShowClearButton="True"
                              Text="{Binding ToText, Mode=TwoWay}"
                              TokensWrapMode="Wrap">

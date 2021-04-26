@@ -62,7 +62,10 @@ namespace יצירת_קורות_חיים
 			homeIcon.VerticalAlignment = VerticalAlignment.Center;
 			homeIcon.SetBinding(Path.DataProperty, pathFillBinding);
 
-
+			TextBlock textBlock = new TextBlock();
+			textBlock.FontSize = 20;
+			textBlock.Text = "בית";
+			textBlock.FontWeight = FontWeight.FromOpenTypeWeight(20);
 
 
 			PackIcon penIcon = new PackIcon();
