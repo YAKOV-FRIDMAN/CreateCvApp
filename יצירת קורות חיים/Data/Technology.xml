@@ -1,0 +1,59 @@
+﻿<Technologies>
+  <Technology>
+    <Name>Angular</Name>
+    <Image>angular.png</Image>
+  </Technology>
+  <Technology>
+    <Name>Asp api</Name>
+    <Image>asp_api.jpg</Image>
+  </Technology>
+  <Technology>
+    <Name>Asp Mvc</Name>
+    <Image>asp_net_mvc.jfif</Image>
+  </Technology>
+  <Technology>
+    <Name>Blazor</Name>
+    <Image>Blazor.png</Image>
+  </Technology>
+  <Technology>
+    <Name>Dot.net core</Name>
+    <Image>dotnet_core.png</Image>
+  </Technology>
+  <Technology>
+    <Name>React</Name>
+    <Image>react.png</Image>
+  </Technology>
+  <Technology>
+    <Name>Redux</Name>
+    <Image>redux.png</Image>
+  </Technology>
+  <Technology>
+    <Name>Web froms</Name>
+    <Image>Web-froms.gif</Image>
+  </Technology>
+  <Technology>
+    <Name>Windows Forms</Name>
+    <Image>Windows-Forms.jpg</Image>
+  </Technology>
+  <Technology>
+    <Name>Wpf</Name>
+    <Image>wpf.png</Image>
+  </Technology>
+  <!--<Technology>
+    <Name></Name>
+    <Image></Image>
+  </Technology>
+  <Technology>
+    <Name></Name>
+    <Image></Image>
+  </Technology>
+  <Technology>
+    <Name></Name>
+    <Image></Image>
+  </Technology>
+  <Technology>
+    <Name></Name>
+    <Image></Image>
+  </Technology>-->
+
+</Technologies>

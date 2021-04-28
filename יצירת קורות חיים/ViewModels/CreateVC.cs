@@ -9,6 +9,9 @@ using יצירת_קורות_חיים.Models;
 using System.Globalization;
 using System.Xml.Serialization;
 using System.IO;
+using Meziantou.Framework;
+using Microsoft.Extensions.FileProviders;
+using יצירת_קורות_חיים.Utils;
 
 namespace יצירת_קורות_חיים.ViewModels
 {
@@ -19,6 +22,10 @@ namespace יצירת_קורות_חיים.ViewModels
         public ObservableCollection<CustomProgrammingLanguages> CustomProgrammingLanguages { get; set; }
         public ProfessionalKnowledge ProfessionalKnowledge { get; set; }
         public ObservableCollection<CustomIDE> CustomIDEs { get; set; }
+        public ObservableCollection<CustomTechnology> CustomTechnologies { get; set; }
+        public ObservableCollection<DesignPattern> DesignPatterns { get; set; }
+        public ObservableCollection<string> Companies { get; set; }
+        
 
         private ObservableCollection<object> toSelectIde;
 
@@ -124,13 +131,75 @@ namespace יצירת_קורות_חיים.ViewModels
             GetCountries();
             GetCityFromXml();
             GetSchoolFromXml();
+            GetCustomTechnologiesFromXml();
+            GetDesignPatternsFromXml();
+            GetCompaniesFromXml();
+        }
 
+        //void GwtGenricDataFromXml<T1 , T2>(string path)
+        //{
+        //    string file = HelperFile.GetRootPath();
+        //    file += path;
+        //    XmlSerializer serializer = new XmlSerializer(typeof(List<T2>));
+        //    string text = File.ReadAllText(file);
+        //    using (StringReader reader = new StringReader(text))
+        //    {
+        //        var company = (List<T2>)serializer.Deserialize(reader);
+        //        Companies = new ObservableCollection<T2>(company.ToList());
+        //    }
+        //}
+
+        private void GetCompaniesFromXml()
+        {
+            string file = HelperFile.GetRootPath();
+            file += "/Data/NewCompany.xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(Companys));
+            string text = File.ReadAllText(file);
+            using (StringReader reader = new StringReader(text))
+            {
+                var company = (Companys)serializer.Deserialize(reader);
+                Companies = new ObservableCollection<string>(company.Company.Select(_=>_.שםחברה).ToList());
+            }
+        }
+
+        private void GetDesignPatternsFromXml()
+        {
+            string file = HelperFile.GetRootPath();
+            file += "/Data/DesignPattern.xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(DesignPatterns));
+            string text = File.ReadAllText(file);
+            using (StringReader reader = new StringReader(text))
+            {
+                var designPatterns = (DesignPatterns)serializer.Deserialize(reader);
+                DesignPatterns = new ObservableCollection<DesignPattern>(designPatterns.DesignPattern.ToList());
+            }
+        }
+
+        private void GetCustomTechnologiesFromXml()
+        {
+            string file = HelperFile.GetRootPath();
+            file += "/Data/Technology.xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(Technologies));
+            string text = File.ReadAllText(file);
+            file = "";
+            using (StringReader reader = new StringReader(text))
+            {
+                var Technologies = (Technologies)serializer.Deserialize(reader);
+                foreach (var item in Technologies.Technology)
+                {
+                    var s1 = item.Image;
+                    item.Image = file + @"/Assets/" +  s1;
+                }
+                CustomTechnologies = new ObservableCollection<CustomTechnology>(Technologies.Technology.ToList());
+            }
         }
 
         private void GetSchoolFromXml()
         {
+            string file = HelperFile.GetRootPath();
+            file += @"/Data/School.xml";
             XmlSerializer serializer = new XmlSerializer(typeof(Schools));
-            string text = File.ReadAllText(@"C:\Users\user1\source\repos\יצירת קורות חיים\יצירת קורות חיים\Data\School.xml");
+            string text = File.ReadAllText(file);
             using (StringReader reader = new StringReader(text))
             {
                 var test = (Schools)serializer.Deserialize(reader);
@@ -143,8 +212,6 @@ namespace יצירת_קורות_חיים.ViewModels
 
             Countries = new ObservableCollection<string>();
             RegionInfo country = new RegionInfo(new CultureInfo("en-US", false).LCID);
-
-            //To get the Country Names from the CultureInfo installed in windows
             foreach (CultureInfo cul in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
             {
                 country = new RegionInfo(new CultureInfo(cul.Name, false).LCID);
@@ -155,21 +222,21 @@ namespace יצירת_קורות_חיים.ViewModels
 
         void GetCityFromXml()
         {
+            string file = HelperFile.GetRootPath();
+            file += @"/Data/Citys.xml";
             XmlSerializer serializer = new XmlSerializer(typeof(CityDada));
-            string text = File.ReadAllText(@"C:\Users\user1\source\repos\יצירת קורות חיים\יצירת קורות חיים\Data\Citys.xml");
+            string text = File.ReadAllText(file);
             using (StringReader reader = new StringReader(text))
             {
                 var test = (CityDada)serializer.Deserialize(reader);
-                //var c =   test.ROW.Where(_ => _.לשכה == "בית שמש ").ToList();
                 Citys = new ObservableCollection<string>(test.ROW.Select(_ => _.שםישוב).ToList());
-             
             }
         }
         private void FillCustomProgrammingLanguages()
         {
             foreach (var item in Enum.GetNames<ProgrammingLanguage>())
             {
-                CustomProgrammingLanguages.Add(new Models.CustomProgrammingLanguages(item));
+                CustomProgrammingLanguages.Add(new CustomProgrammingLanguages(item));
             }
         }
 
@@ -197,7 +264,6 @@ namespace יצירת_קורות_חיים.ViewModels
         {
             var e = obj as WorkExperience;
             WorkExperiences.Remove(e);
-            // Educations.Add(new Education());
         }
 
 

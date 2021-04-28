@@ -1,0 +1,92 @@
+﻿<DesignPatterns>
+  <DesignPattern>
+    <Name>Abstract Factory</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Factory Method</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Builder</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Lazy initialization</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Object pool</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Prototype</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Singleton</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Multiton</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Resource acquisition is initialization</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Adapter</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Bridge</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Composite</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Decorator</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Facade</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Flyweight</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Proxy</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Chain of responsibility</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Command</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Interpreter</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Iterator</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Mediator</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Memento</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Null Object</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Observer</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Blackboard</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>State</Name>
+  </DesignPattern>
+  <DesignPattern>
+    <Name>Strategy</Name>
+  </DesignPattern>
+ <DesignPattern>
+    <Name>Specification</Name>
+  </DesignPattern>
+ <DesignPattern>
+    <Name>Template method</Name>
+  </DesignPattern>
+ <DesignPattern>
+    <Name>Visitor</Name>
+  </DesignPattern>
+</DesignPatterns>

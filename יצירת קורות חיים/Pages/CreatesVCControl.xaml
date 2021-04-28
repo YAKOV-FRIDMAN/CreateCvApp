@@ -162,13 +162,48 @@
                                <materialDesign:PackIcon
                                        Kind="Work"/>
                            </syncfusion:SfTextInputLayout.LeadingView>
-                           <TextBox
-                               
-                                    MaxLength="15"
-                               Text="{Binding Job, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                   />
-                       
-                       </syncfusion:SfTextInputLayout>
+                            <syncfusion:SfTextBoxExt
+                             MaxLength="15"
+                             ShowDropDownButton="True"
+                              TextHighlightMode="MultipleOccurrence"
+                            AutoCompleteMode="SuggestAppend"
+                            SuggestionMode="StartsWithCaseSensitive"
+                            AutoCompleteSource="{Binding DataContext.Companies  , 
+                                               RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                            Text="{Binding Job , Mode=TwoWay}"
+                            >
+                                <!--<syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Height="40" Orientation="Horizontal">
+
+                                            <StackPanel Margin="2" Orientation="Vertical">
+                                                <TextBlock
+                                                Margin="4,2,4,0"
+                                                FontSize="12"
+                                                Text="{Binding שםחברה}" />
+                                                <TextBlock
+                                                Margin="4,2,4,0"
+                                                FontSize="12"
+                                                Text="{Binding שםעיר}" />
+                                                
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>-->
+
+                                <syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="No Results Found" />
+                                    </DataTemplate>
+                                </syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+
+                            </syncfusion:SfTextBoxExt>
+
+
+                        </syncfusion:SfTextInputLayout>
                        <syncfusion:SfTextInputLayout
                                  Grid.Row="0"
                                  Grid.Column="1"
@@ -502,11 +537,49 @@
                             <materialDesign:PackIcon
                                 Kind="Design"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
-                        <TextBox
-                             MaxLength="15"
-                            />
+                            <syncfusion:SfTextBoxExt
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             AutoCompleteMode="SuggestAppend"
+                             AutoCompleteSource="{Binding DataContext.DesignPatterns , 
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                             EnableAutoSize="True"
+                             
+                           
+                             MultiSelectMode="Token"
+                             SearchItemPath="Name"
+                             SelectedItems="{Binding ProfessionalKnowledge.DesignPatterns, Mode=TwoWay}"
+                             ShowClearButton="True"
+                             Text="{Binding ToText, Mode=TwoWay}"
+                             TokensWrapMode="Wrap">
+                                <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Height="40" Orientation="Horizontal">
 
-                    </syncfusion:SfTextInputLayout>
+                                            <StackPanel Margin="2" Orientation="Vertical">
+                                                <TextBlock
+                                                Margin="4,2,4,0"
+                                                FontSize="12"
+                                                FontWeight="Medium"
+                                                Text="{Binding Name}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+
+                                <syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="No Results Found" />
+                                    </DataTemplate>
+                                </syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                            </syncfusion:SfTextBoxExt>
+
+
+                        </syncfusion:SfTextInputLayout>
                     <syncfusion:SfTextInputLayout
                           Grid.Row="3"
                           Grid.Column="0"
@@ -519,11 +592,49 @@
                             <materialDesign:PackIcon
                                 Kind="Computer"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
-                        <TextBox
-                             MaxLength="15"
-                            />
+                            <syncfusion:SfTextBoxExt
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             AutoCompleteMode="Suggest"
+                             AutoCompleteSource="{Binding DataContext.CustomTechnologies  , 
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                             EnableAutoSize="True"
+                             
+                             ImageMemberPath="Image"
+                             MultiSelectMode="Token"
+                             SearchItemPath="Name"
+                             SelectedItems="{Binding ProfessionalKnowledge.Technologys, Mode=TwoWay}"
+                             ShowClearButton="True"
+                             Text="{Binding ToText, Mode=TwoWay}"
+                             TokensWrapMode="Wrap">
+                                <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Height="40" Orientation="Horizontal">
+                                            <!--<materialDesign:PackIcon Width="30" Height="30" Foreground="DarkSlateGray" Kind="{Binding Icon}" />-->
+                                            <Image Width="30" Height="30" Source="{Binding Image}"/>
+                                            <StackPanel Margin="2" Orientation="Vertical">
+                                                <TextBlock
+                                                Margin="4,2,4,0"
+                                                FontSize="12"
+                                                Text="{Binding Name}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
 
-                    </syncfusion:SfTextInputLayout>
+                                <syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="No Results Found" />
+                                    </DataTemplate>
+                                </syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                            </syncfusion:SfTextBoxExt>
+
+
+                        </syncfusion:SfTextInputLayout>
 
                     <!--<Line Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  
                         Stroke="Gray"
@@ -1173,9 +1284,46 @@
                             <materialDesign:PackIcon
                                 Kind="Computer"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
-                        <TextBox
-                             MaxLength="15"
-                            />
+                        <syncfusion:SfTextBoxExt
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             AutoCompleteMode="Suggest"
+                             AutoCompleteSource="{Binding CustomTechnologies}"
+                             EnableAutoSize="True"
+                             
+                             ImageMemberPath="Image"
+                             MultiSelectMode="Token"
+                             SearchItemPath="Name"
+                             SelectedItems="{Binding ProfessionalKnowledge.Technologys, Mode=TwoWay}"
+                             ShowClearButton="True"
+                             Text="{Binding ToText, Mode=TwoWay}"
+                             TokensWrapMode="Wrap">
+                            <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Height="40" Orientation="Horizontal">
+                                        <!--<materialDesign:PackIcon Width="30" Height="30" Foreground="DarkSlateGray" Kind="{Binding Icon}" />-->
+                                        <Image Width="30" Height="30" Source="{Binding Image}"/>
+                                        <StackPanel Margin="2" Orientation="Vertical">
+                                            <TextBlock
+                                                Margin="4,2,4,0"
+                                                FontSize="12"
+                                                Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+
+                            <syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                                <DataTemplate>
+                                    <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="No Results Found" />
+                                </DataTemplate>
+                            </syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                        </syncfusion:SfTextBoxExt>
+
 
                     </syncfusion:SfTextInputLayout>
                     <syncfusion:SfTextInputLayout
@@ -1201,7 +1349,7 @@
                            
                              MultiSelectMode="Token"
                              SearchItemPath="Ide"
-                             SelectedItems="{Binding ToSelectIde, Mode=TwoWay}"
+                             SelectedItems="{Binding ProfessionalKnowledge.IDEs, Mode=TwoWay}"
                              ShowClearButton="True"
                              Text="{Binding ToText, Mode=TwoWay}"
                              TokensWrapMode="Wrap">
@@ -1240,15 +1388,55 @@
                          LeadingViewPosition="Outside" 
                          Hint="תבנית עיצוב (Software design pattern)"
                         >
-                        <syncfusion:SfTextInputLayout.LeadingView>
-                            <materialDesign:PackIcon
-                                Kind="Design"/>
-                        </syncfusion:SfTextInputLayout.LeadingView>
-                        <TextBox
-                             MaxLength="15"
-                            />
+                                 
+                            <syncfusion:SfTextInputLayout.LeadingView>
+                                <materialDesign:PackIcon
+                                Kind="Edit"/>
+                            </syncfusion:SfTextInputLayout.LeadingView>
+                            <syncfusion:SfTextBoxExt
+                             Margin="10"
+                             VerticalAlignment="Center"
+                             VerticalContentAlignment="Center"
+                             AutoCompleteMode="SuggestAppend"
+                             AutoCompleteSource="{Binding DesignPatterns}"
+                             EnableAutoSize="True"
+                             
+                           
+                             MultiSelectMode="Token"
+                             SearchItemPath="Name"
+                             SelectedItems="{Binding ProfessionalKnowledge.DesignPatterns, Mode=TwoWay}"
+                             ShowClearButton="True"
+                             Text="{Binding ToText, Mode=TwoWay}"
+                             TokensWrapMode="Wrap">
+                                <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Height="40" Orientation="Horizontal">
 
-                    </syncfusion:SfTextInputLayout>
+                                            <StackPanel Margin="2" Orientation="Vertical">
+                                                <TextBlock
+                                                Margin="4,2,4,0"
+                                                FontSize="12"
+                                                FontWeight="Medium"
+                                                Text="{Binding Name}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
+
+                                <syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="No Results Found" />
+                                    </DataTemplate>
+                                </syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
+                            </syncfusion:SfTextBoxExt>
+
+
+                        </syncfusion:SfTextInputLayout>
+
+
                 </Grid>
 
             </syncfusion:WizardPage>

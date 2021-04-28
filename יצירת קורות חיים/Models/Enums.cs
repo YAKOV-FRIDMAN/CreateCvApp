@@ -78,10 +78,10 @@ namespace יצירת_קורות_חיים.Models
     {
      
     }
-    public enum DesignPattern
-    {
+    //public enum DesignPattern
+    //{
 
-    } 
+    //} 
     public enum IDE
     {
         Microsoft,

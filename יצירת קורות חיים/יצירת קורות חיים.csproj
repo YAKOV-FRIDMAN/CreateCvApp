@@ -8,8 +8,61 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\angular.png" />
+    <None Remove="Assets\asp_api.jpg" />
+    <None Remove="Assets\asp_net_mvc.jfif" />
+    <None Remove="Assets\Blazor.png" />
+    <None Remove="Assets\dotnet_core.png" />
+    <None Remove="Assets\react.png" />
+    <None Remove="Assets\redux.png" />
+    <None Remove="Assets\Web-froms.gif" />
+    <None Remove="Assets\Windows-Forms.jpg" />
+    <None Remove="Assets\wpf.png" />
+    <None Remove="Data\Citys.xml" />
+    <None Remove="Data\NewCompany.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\angular.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\asp_api.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\asp_net_mvc.jfif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Blazor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\dotnet_core.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\react.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Web-froms.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Windows-Forms.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\wpf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Citys.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\NewCompany.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesign.Icons" Version="1.1.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+    <PackageReference Include="Meziantou.Framework.FullPath" Version="1.0.6" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="Syncfusion.Grouping.Base" Version="19.1.0.55" />
     <PackageReference Include="Syncfusion.Licensing" Version="19.1.0.55" />
@@ -24,6 +77,18 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\redux.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\School.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
