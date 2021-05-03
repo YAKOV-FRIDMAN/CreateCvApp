@@ -25,7 +25,7 @@ namespace יצירת_קורות_חיים.ViewModels
         public ObservableCollection<CustomTechnology> CustomTechnologies { get; set; }
         public ObservableCollection<DesignPattern> DesignPatterns { get; set; }
         public ObservableCollection<string> Companies { get; set; }
-        
+
 
         private ObservableCollection<object> toSelectIde;
 
@@ -83,8 +83,8 @@ namespace יצירת_קורות_חיים.ViewModels
         public Education Education
         {
             get { return education; }
-            set 
-            { 
+            set
+            {
                 education = value;
                 OnPropertyChanged();
             }
@@ -107,7 +107,7 @@ namespace יצירת_קורות_חיים.ViewModels
                 OnPropertyChanged();
             }
         }
-        public CreateVC()
+        public  CreateVC()
         {
             PersonalInformation = new PersonalInformation();
             WorkExperiences = new ObservableCollection<WorkExperience>();
@@ -134,6 +134,7 @@ namespace יצירת_קורות_חיים.ViewModels
             GetCustomTechnologiesFromXml();
             GetDesignPatternsFromXml();
             GetCompaniesFromXml();
+            // GetCompaniesFromXmlAsync();
         }
 
         //void GwtGenricDataFromXml<T1 , T2>(string path)
@@ -152,14 +153,30 @@ namespace יצירת_קורות_חיים.ViewModels
         private void GetCompaniesFromXml()
         {
             string file = HelperFile.GetRootPath();
-            file += "/Data/NewCompany.xml";
+            file += "/Data/Company.xml";
             XmlSerializer serializer = new XmlSerializer(typeof(Companys));
             string text = File.ReadAllText(file);
             using (StringReader reader = new StringReader(text))
             {
                 var company = (Companys)serializer.Deserialize(reader);
-                Companies = new ObservableCollection<string>(company.Company.Select(_=>_.שםחברה).ToList());
+                Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
             }
+        }
+
+        private async Task GetCompaniesFromXmlAsync()
+        {
+            string file = HelperFile.GetRootPath();
+            file += "/Data/Company.xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(Companys));
+            string text = await File.ReadAllTextAsync(file);
+            await Task.Run(() =>
+            {
+                using (StringReader reader = new StringReader(text))
+                {
+                    var company = (Companys)serializer.Deserialize(reader);
+                    Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
+                }
+            });
         }
 
         private void GetDesignPatternsFromXml()
@@ -188,7 +205,7 @@ namespace יצירת_קורות_חיים.ViewModels
                 foreach (var item in Technologies.Technology)
                 {
                     var s1 = item.Image;
-                    item.Image = file + @"/Assets/" +  s1;
+                    item.Image = file + @"/Assets/" + s1;
                 }
                 CustomTechnologies = new ObservableCollection<CustomTechnology>(Technologies.Technology.ToList());
             }
@@ -203,7 +220,7 @@ namespace יצירת_קורות_חיים.ViewModels
             using (StringReader reader = new StringReader(text))
             {
                 var test = (Schools)serializer.Deserialize(reader);
-                Schools = new ObservableCollection<string>(test.School.Select(_=>_.Name).ToList());
+                Schools = new ObservableCollection<string>(test.School.Select(_ => _.Name).ToList());
             }
         }
 

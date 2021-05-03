@@ -10,15 +10,12 @@ namespace יצירת_קורות_חיים.Models
 	[XmlRoot(ElementName = "Company")]
 	public class Company
 	{
-		[XmlElement(ElementName = "שםחברה")]
-		public string שםחברה { get; set; }
-		[XmlElement(ElementName = "שםעיר")]
-		public string שםעיר { get; set; }
-		[XmlElement(ElementName = "שםבאנגלית")]
-		public string שםבאנגלית { get; set; }
+		public string Name { get; set; }
+		public string NameInEnglish { get; set; }
+		public string City { get; set; }
 	}
 
-	[XmlRoot(ElementName = "Companys")]
+	[XmlRoot(ElementName = "ArrayOfCompany")]
 	public class Companys
 	{
 		[XmlElement(ElementName = "Company")]

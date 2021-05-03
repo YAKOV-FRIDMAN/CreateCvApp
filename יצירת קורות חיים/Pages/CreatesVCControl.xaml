@@ -168,6 +168,8 @@
                               TextHighlightMode="MultipleOccurrence"
                             AutoCompleteMode="SuggestAppend"
                             SuggestionMode="StartsWithCaseSensitive"
+                                MaxLines="10000000"
+                             
                             AutoCompleteSource="{Binding DataContext.Companies  , 
                                                RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                             Text="{Binding Job , Mode=TwoWay}"
@@ -446,9 +448,9 @@
                             <materialDesign:PackIcon
                                     Kind="DateRange"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
-                        <TextBox
-                                 MaxLength="15"
-                                />
+                            <materialDesign:Transitioner>
+                                
+                            </materialDesign:Transitioner>
                     
                     </syncfusion:SfTextInputLayout>
                     <syncfusion:SfTextInputLayout
@@ -635,7 +637,7 @@
 
 
                         </syncfusion:SfTextInputLayout>
-
+                        
                     <!--<Line Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  
                         Stroke="Gray"
                           X1="300" Y1="20"  

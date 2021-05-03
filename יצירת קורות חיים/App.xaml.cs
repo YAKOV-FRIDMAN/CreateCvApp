@@ -5,7 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
+using Syncfusion;
+using Syncfusion.Licensing;
 namespace יצירת_קורות_חיים
 {
     /// <summary>
@@ -13,5 +14,10 @@ namespace יצירת_קורות_חיים
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            //SyncfusionLicenseProvider.RegisterLicense("@31392e312e30VhY82/n8xKMo1ER5qDxXDcZ3O/rtaJn9YDmpq4WkzT0=");
+            SyncfusionLicenseProvider.RegisterLicense("NDQwMTM0QDMxMzkyZTMxMmUzMGQ0NGNYdGNsRWl6OFlrQUh5L1VrSGZ5aGVnS0l0aFovQkRkTGJMOUo1ckU9");
+        }
     }
 }
