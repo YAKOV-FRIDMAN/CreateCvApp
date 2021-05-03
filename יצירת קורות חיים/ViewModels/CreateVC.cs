@@ -12,6 +12,8 @@ using System.IO;
 using Meziantou.Framework;
 using Microsoft.Extensions.FileProviders;
 using יצירת_קורות_חיים.Utils;
+using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json;
 
 namespace יצירת_קורות_חיים.ViewModels
 {
@@ -133,7 +135,9 @@ namespace יצירת_קורות_חיים.ViewModels
             GetSchoolFromXml();
             GetCustomTechnologiesFromXml();
             GetDesignPatternsFromXml();
-            GetCompaniesFromXml();
+            // GetCompaniesFromXml();
+            DeserializeJson();
+            //Deserialize();
             // GetCompaniesFromXmlAsync();
         }
 
@@ -153,14 +157,84 @@ namespace יצירת_קורות_חיים.ViewModels
         private void GetCompaniesFromXml()
         {
             string file = HelperFile.GetRootPath();
+            var fileNew = file + "/Data/CompanyBin.bin";
             file += "/Data/Company.xml";
             XmlSerializer serializer = new XmlSerializer(typeof(Companys));
             string text = File.ReadAllText(file);
             using (StringReader reader = new StringReader(text))
             {
                 var company = (Companys)serializer.Deserialize(reader);
+                //  Serialize(company, fileNew);
+                SeralizeJson(company);
                 Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
             }
+        }
+
+
+        public static void Serialize(Companys copmp, string filename)
+        {
+            //Create the stream to add object into it.  
+            System.IO.Stream ms = File.OpenWrite(filename);
+            //Format the object as Binary  
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            //It serialize the employee object  
+            formatter.Serialize(ms, copmp);
+            ms.Flush();
+            ms.Close();
+            ms.Dispose();
+        }
+        static void SeralizeJson(Companys copmp)
+        {
+            string filename = HelperFile.GetRootPath();
+            //Format the object as Binary  
+            filename += "/Data/CompanyJson.json";
+            File.WriteAllText(filename, JsonConvert.SerializeObject(copmp));
+
+            // serialize JSON directly to a file
+            using (StreamWriter file = File.CreateText(filename))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, copmp);
+            }
+        }
+
+
+        void DeserializeJson()
+        {
+            string filename = HelperFile.GetRootPath();
+            //Format the object as Binary  
+            filename += "/Data/CompanyJson.json";
+            string text = File.ReadAllText(filename);
+            var company = Newtonsoft.Json.JsonConvert.DeserializeObject<Companys>(text);
+            Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
+
+        }
+
+
+        [STAThread]
+        public void Deserialize()
+        {
+            string filename = HelperFile.GetRootPath();
+            //Format the object as Binary  
+            filename += "/Data/CompanyBin.bin";
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            //Reading the file from the server  
+            FileStream fs = File.Open(filename, FileMode.Open);
+
+            object obj = formatter.Deserialize(fs);
+            Companys company = (Companys)obj;
+            fs.Flush();
+            fs.Close();
+            fs.Dispose();
+
+            Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
+
+            //foreach (Employee employee in emps)
+            //{
+            //    Response.Write(employee.Name + "<br/>");
+            //}
         }
 
         private async Task GetCompaniesFromXmlAsync()

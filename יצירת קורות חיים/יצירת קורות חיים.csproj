@@ -64,6 +64,7 @@
     <PackageReference Include="Meziantou.Framework.FullPath" Version="1.0.6" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Syncfusion.Grouping.Base" Version="19.1.0.55" />
     <PackageReference Include="Syncfusion.Licensing" Version="19.1.0.55" />
     <PackageReference Include="Syncfusion.Pdf.Wpf" Version="19.1.0.55" />

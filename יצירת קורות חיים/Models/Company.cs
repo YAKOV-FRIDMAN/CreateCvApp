@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 namespace יצירת_קורות_חיים.Models
 {
+	[Serializable]
 	[XmlRoot(ElementName = "Company")]
 	public class Company
 	{
@@ -15,6 +16,7 @@ namespace יצירת_קורות_חיים.Models
 		public string City { get; set; }
 	}
 
+	[Serializable]
 	[XmlRoot(ElementName = "ArrayOfCompany")]
 	public class Companys
 	{
