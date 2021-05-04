@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace יצירת_קורות_חיים.Models
 {
-    public class PersonalInformation : ViewModels.ViewModelBase
+    public class PersonalInformation
     {
    
         public string FullName { get; set; }
@@ -15,10 +15,10 @@ namespace יצירת_קורות_חיים.Models
         public string Email { get; set; }
         public string Adderss { get; set; }
         public string Country { get; set; }
-        public string LinkGitHub { get; set; }
-        public string LinkYourSite { get; set; }
-        public string LinkLinkdin { get; set; }
-        public string LinkFacebook { get; set; }
+        public string LinkGitHub { get; set; } = "https://github.com/";
+        public string LinkYourSite { get; set; } = "https://www.google.com/";
+        public string LinkLinkdin { get; set; } = "https://www.linkedin.com/";
+        public string LinkFacebook { get; set; } = "https://www.facebook.com/";
 
     }
 }

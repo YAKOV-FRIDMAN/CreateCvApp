@@ -12,6 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Syncfusion.Windows.Controls.RichTextBoxAdv;
+using Syncfusion.Windows.Shared;
+using Syncfusion.Windows.Tools.Controls;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using יצירת_קורות_חיים.ViewModels;
 
 namespace יצירת_קורות_חיים.Pages
@@ -24,16 +31,18 @@ namespace יצירת_קורות_חיים.Pages
         public CreatesVCControl()
         {
             InitializeComponent();
-           
+            var d = (CreateVC)DataContext;
+            d.LoadWord += (s, e) => 
+            { 
+               richTextBoxAdv.Load(@"C:\Users\user1\source\repos\יצירת קורות חיים\יצירת קורות חיים\bin\Debug\net5.0-windows\Hello World.doc");
+            };
         }
-
 
         private void wizar_SelectedPageChanged(object sender, RoutedEventArgs e)
         {
             ContentCustomization.SelectedIndex = wizar.Items.IndexOf(wizar.SelectedWizardPage);
-
         }
 
-     
+    
     }
 }

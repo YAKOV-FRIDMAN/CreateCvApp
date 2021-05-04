@@ -14,6 +14,7 @@ using Microsoft.Extensions.FileProviders;
 using יצירת_קורות_חיים.Utils;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
+using יצירת_קורות_חיים.Services;
 
 namespace יצירת_קורות_חיים.ViewModels
 {
@@ -92,12 +93,46 @@ namespace יצירת_קורות_חיים.ViewModels
             }
         }
 
+        private int indexPage;
+
+        public int IndexPage
+        {
+            get { return indexPage; }
+            set
+            {
+                indexPage = value;
+                OnPropertyChanged();
+           
+                if (indexPage == 6)
+                {
+                    IsPogresssVisivle = true;
+                    FunFinish();
+                    LoadWord?.Invoke("", new EventArgs());
+                }
+                else
+                    IsPogresssVisivle = false;
+            }
+        }
+
+        private bool isPogresssVisivle;
+
+        public bool IsPogresssVisivle
+        {
+            get { return isPogresssVisivle; }
+            set 
+            { 
+                isPogresssVisivle = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public RelayCommand AddWorkExperience { get; set; }
         public RelayCommand AddProject { get; set; }
         public RelayCommand RemoveWorkExperience { get; set; }
         public RelayCommand RemovProject { get; set; }
 
+        public event EventHandler LoadWord;
         private string toText;
 
         public string ToText
@@ -109,6 +144,7 @@ namespace יצירת_קורות_חיים.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public  CreateVC()
         {
             PersonalInformation = new PersonalInformation();
@@ -139,6 +175,13 @@ namespace יצירת_קורות_חיים.ViewModels
             DeserializeJson();
             //Deserialize();
             // GetCompaniesFromXmlAsync();
+           
+        }
+
+        private void FunFinish()
+        {
+            GenerateCvToWord generateCvToWord = new GenerateCvToWord("", PersonalInformation);
+            IsPogresssVisivle = true;
         }
 
         //void GwtGenricDataFromXml<T1 , T2>(string path)
@@ -173,12 +216,8 @@ namespace יצירת_קורות_חיים.ViewModels
 
         public static void Serialize(Companys copmp, string filename)
         {
-            //Create the stream to add object into it.  
             System.IO.Stream ms = File.OpenWrite(filename);
-            //Format the object as Binary  
-
             BinaryFormatter formatter = new BinaryFormatter();
-            //It serialize the employee object  
             formatter.Serialize(ms, copmp);
             ms.Flush();
             ms.Close();
@@ -187,11 +226,8 @@ namespace יצירת_קורות_חיים.ViewModels
         static void SeralizeJson(Companys copmp)
         {
             string filename = HelperFile.GetRootPath();
-            //Format the object as Binary  
             filename += "/Data/CompanyJson.json";
             File.WriteAllText(filename, JsonConvert.SerializeObject(copmp));
-
-            // serialize JSON directly to a file
             using (StreamWriter file = File.CreateText(filename))
             {
                 JsonSerializer serializer = new JsonSerializer();
@@ -203,10 +239,9 @@ namespace יצירת_קורות_חיים.ViewModels
         void DeserializeJson()
         {
             string filename = HelperFile.GetRootPath();
-            //Format the object as Binary  
             filename += "/Data/CompanyJson.json";
             string text = File.ReadAllText(filename);
-            var company = Newtonsoft.Json.JsonConvert.DeserializeObject<Companys>(text);
+            var company = JsonConvert.DeserializeObject<Companys>(text);
             Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
 
         }
@@ -216,25 +251,15 @@ namespace יצירת_קורות_חיים.ViewModels
         public void Deserialize()
         {
             string filename = HelperFile.GetRootPath();
-            //Format the object as Binary  
             filename += "/Data/CompanyBin.bin";
             BinaryFormatter formatter = new BinaryFormatter();
-
-            //Reading the file from the server  
             FileStream fs = File.Open(filename, FileMode.Open);
-
             object obj = formatter.Deserialize(fs);
             Companys company = (Companys)obj;
             fs.Flush();
             fs.Close();
             fs.Dispose();
-
             Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
-
-            //foreach (Employee employee in emps)
-            //{
-            //    Response.Write(employee.Name + "<br/>");
-            //}
         }
 
         private async Task GetCompaniesFromXmlAsync()

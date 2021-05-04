@@ -9,26 +9,12 @@ namespace יצירת_קורות_חיים.Models
 {
     public class ProgrammingProject : ViewModelBase
     {
-        
-        public ProgrammingLanguage ProgrammingLanguage { get; set; }
-        public Technology Technology { get; set; }
         public string Descritpion { get; set; }
-
-        private ObservableCollection<object> toSelectedItem1;
-        public ObservableCollection<object> ToSelectedItem1
-        {
-            get { return toSelectedItem1; }
-            set
-            {
-                toSelectedItem1 = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ProgrammingProject()
-        {
-            ToSelectedItem1 = new ObservableCollection<object>();
-        }
-
+        public string Role { get; set; }
+        public DateTime StartProject { get; set; } = DateTime.Now;
+        public DateTime FinishProject { get; set; } = DateTime.Now;
+        public ObservableCollection<object> ProgrammingLanguges { get; set; } = new ObservableCollection<object>();
+        public ObservableCollection<object> Technologys { get; set; } = new ObservableCollection<object>();
+        public ObservableCollection<object> DesignPatterns { get; set; } = new ObservableCollection<object>();
     }
 }

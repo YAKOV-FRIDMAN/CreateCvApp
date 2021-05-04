@@ -14,6 +14,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using יצירת_קורות_חיים.Pages;
+using Syncfusion.Windows.Controls.RichTextBoxAdv;
+using Syncfusion.Windows.Shared;
+//using Syncfusion.Windows.Tools.Controls;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 
 namespace יצירת_קורות_חיים
 {

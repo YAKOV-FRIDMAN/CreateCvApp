@@ -8,13 +8,18 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
+             xmlns:RichTextBoxAdv="clr-namespace:Syncfusion.Windows.Controls.RichTextBoxAdv;assembly=Syncfusion.SfRichTextBoxAdv.Wpf"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:convert="clr-namespace:יצירת_קורות_חיים.Converter"
              xmlns:local="clr-namespace:יצירת_קורות_חיים.Pages"
              xmlns:data="clr-namespace:יצירת_קורות_חיים.ViewModels"
              xmlns:models="clr-namespace:יצירת_קורות_חיים.Models"
-             d:DesignHeight="450" d:DesignWidth="800">
-             <!--xmlns:StyleAlias="clr-namespace:Motion.VideoEffects"-->
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:skinManager="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+             skinManager:SfSkinManager.VisualStyle="Office2019HighContrastWhite"
+             >
+             <!--skinManager:SfSkinManager.VisualStyle="Office2019HighContrastWhite"
+             xmlns:skinManager="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"-->
 
     <UserControl.DataContext>
         <data:CreateVC/>
@@ -29,6 +34,9 @@
             </ObjectDataProvider>
             
             <convert:TestConvert x:Key="tests"/>
+            
+            <convert:ConvertStepProgressBarVisibulty x:Key="StepProgressBarVisibulty"/>
+            <!--=========StepProgress=======Start=======-->
             <DataTemplate x:Key="weolcme" >
                     <Grid Visibility="Visible" >
                          <Grid.RowDefinitions>
@@ -45,7 +53,7 @@
                         <TextBlock Grid.Row="1" Text="ברוך הבא" Background="Transparent" Foreground="Black"/>
                     </Grid>
         </DataTemplate>
-             <DataTemplate x:Key="personal">
+            <DataTemplate x:Key="personal">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -62,7 +70,7 @@
 
                 </Grid>
         </DataTemplate>
-             <DataTemplate x:Key="work">
+            <DataTemplate x:Key="work">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -79,7 +87,7 @@
 
                 </Grid>
         </DataTemplate>
-             <DataTemplate x:Key="school">
+            <DataTemplate x:Key="school">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -96,7 +104,7 @@
 
                 </Grid>
         </DataTemplate>
-              <DataTemplate x:Key="technolgia">
+            <DataTemplate x:Key="technolgia">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -113,7 +121,7 @@
 
                 </Grid>
         </DataTemplate>
-              <DataTemplate x:Key="project">
+            <DataTemplate x:Key="project">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -130,7 +138,10 @@
 
                 </Grid>
         </DataTemplate>
-             <DataTemplate x:Key="WorkingExperience">
+            <!--=========StepProgress=======Finish=======-->
+
+            <!--===============Template For Observable Collection======Start=====-->
+            <DataTemplate x:Key="WorkingExperience">
                 <Border
                     Margin="20,20,20,0"
                     Background="White" BorderBrush="Silver" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8">
@@ -174,24 +185,7 @@
                                                RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                             Text="{Binding Job , Mode=TwoWay}"
                             >
-                                <!--<syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Height="40" Orientation="Horizontal">
-
-                                            <StackPanel Margin="2" Orientation="Vertical">
-                                                <TextBlock
-                                                Margin="4,2,4,0"
-                                                FontSize="12"
-                                                Text="{Binding שםחברה}" />
-                                                <TextBlock
-                                                Margin="4,2,4,0"
-                                                FontSize="12"
-                                                Text="{Binding שםעיר}" />
-                                                
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>-->
+                      
 
                                 <syncfusion:SfTextBoxExt.NoResultsFoundTemplate>
                                     <DataTemplate>
@@ -224,25 +218,7 @@
                                    />
                        
                        </syncfusion:SfTextInputLayout>
-                       <!--<syncfusion:SfTextInputLayout
-                                 Grid.Row="1"
-                                 Grid.Column="0"
-                                 HelperText="מתי התחלת לעבוד"
-                                 Margin="0,20,0,0" 
-                                LeadingViewPosition="Outside" 
-                                Hint="תאריך תחילת עבודה"
-                               >
-                           <syncfusion:SfTextInputLayout.LeadingView>
-                               <materialDesign:PackIcon
-                                       Kind="DateRange"/>
-                           </syncfusion:SfTextInputLayout.LeadingView>
-                           <TextBox
-                                    MaxLength="15"
-                                   />
-                           
-                       
-                       </syncfusion:SfTextInputLayout>-->
-
+                  
                         <Grid
                             Grid.Row="1"
                             Grid.Column="0"
@@ -280,43 +256,6 @@
                             </Border>
                             <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Gray" Margin="13,2,10,0" Text="מתי התחלת לעבוד"/>
                         </Grid>
-
-
-                        <!--<syncfusion:SfTextInputLayout
-                                 Grid.Row="1"
-                                 Grid.Column="1"
-                                 HelperText="מתי סיימת לעבוד"
-                                 Margin="0,20,0,0" 
-                                 
-                                  LeadingViewPosition="Outside" 
-                                 Hint="תאריך סיום עבודה"
-                               >
-                           <syncfusion:SfTextInputLayout.LeadingView>
-                               <materialDesign:PackIcon
-                                       Kind="Timeline"/>
-                           </syncfusion:SfTextInputLayout.LeadingView>
-
-                
-                            --><!--<syncfusion:SfDateSelector
-                              x:Name="DateSelector"
-                           
-                              Height="340"
-                              Width="180"
-                              Margin="50,20"
-                              BorderThickness="1"
-                              ShowCancelButton="False"
-                              ShowDoneButton="False"
-                               />-->
-                              
-
-
-                            <!--<syncfusion:DateTimeEdit />-->
-                           <!--<syncfusion:SfDateTimeRangeNavigator />-->
-                           <!--<syncfusion:SfDatePicker />-->
-                           <!--<DatePicker/>--><!--
-                            
-                       </syncfusion:SfTextInputLayout>-->
-
                         <Grid
                             Grid.Row="1"
                             Grid.Column="1"
@@ -353,7 +292,6 @@
 
                                 </DatePicker>
                             </Border>
-                            <!--<DatePicker SelectedDate="{Binding Start , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>-->
                             <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Gray" Margin="13,2,10,0" Text="מתי סיימת לעבוד"/>
                         </Grid>
                 
@@ -381,27 +319,25 @@
                 </Border>
 
         </DataTemplate>
-             <DataTemplate x:Key="projectPogram">
+            <DataTemplate x:Key="projectPogram">
                 <Border
                     Margin="20,20,20,0"
                     Background="White" BorderBrush="Silver" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8">
-                    
-                 <Grid Margin="20" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <syncfusion:SfTextInputLayout
+                   <Grid Margin="20" >
+                      <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="3*"/>
+                          <ColumnDefinition Width="3*"/>
+                          <ColumnDefinition Width="*"/>
+                      </Grid.ColumnDefinitions>
+                      <Grid.RowDefinitions>
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                          <RowDefinition Height="Auto" />
+                      </Grid.RowDefinitions>
+                      <syncfusion:SfTextInputLayout
                               Grid.Row="0"
                               Grid.Column="0"
                               HelperText="ספר לנו על הפרוייקט שלך"
@@ -414,12 +350,11 @@
                                     Kind="Work"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                            
-                                 MaxLength="15" Text="{Binding DataContext.School, Mode=TwoWay, UpdateSourceTrigger=Default}"
+                                   Text="{Binding Descritpion, Mode=TwoWay, UpdateSourceTrigger=Default}"
                                 />
                     
                     </syncfusion:SfTextInputLayout>
-                    <syncfusion:SfTextInputLayout
+                      <syncfusion:SfTextInputLayout
                               Grid.Row="0"
                               Grid.Column="1"
                               HelperText="מה עשית שם"
@@ -432,45 +367,87 @@
                                     Kind="Function"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                                 MaxLength="15"
+                                 Text="{Binding Role, Mode=TwoWay, UpdateSourceTrigger=Default}"
                                 />
                     
                     </syncfusion:SfTextInputLayout>
-                    <syncfusion:SfTextInputLayout
-                              Grid.Row="1"
+                      <Grid
+                            Grid.Row="1"
                               Grid.Column="0"
-                              HelperText="מתי התחלת לעבוד על זה"
-                              Margin="0,20,0,0" 
-                             LeadingViewPosition="Outside" 
-                             Hint="תאריך תחילת עבודה על הפרוייקט"
-                            >
-                        <syncfusion:SfTextInputLayout.LeadingView>
+                            Margin="0,20,0,15" 
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
                             <materialDesign:PackIcon
-                                    Kind="DateRange"/>
-                        </syncfusion:SfTextInputLayout.LeadingView>
-                            <materialDesign:Transitioner>
+                                Grid.Column="0"
+                                Width="25"
+                                Height="25"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Foreground="Gray"
+                                       Kind="DateRange"/>
+                            <Border
                                 
-                            </materialDesign:Transitioner>
-                    
-                    </syncfusion:SfTextInputLayout>
-                    <syncfusion:SfTextInputLayout
+                                
+                                Padding="10"
+                                 
+                                Grid.Column="1"
+                                
+                                Background="White" BorderBrush="Gray" BorderThickness="1.5,1.5,1.5,1.5" CornerRadius="5,5,5,5">
+                                <DatePicker
+                                    BorderBrush="Transparent"
+                                    SelectedDate="{Binding StartProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                                </DatePicker>
+                            </Border>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Gray" Margin="13,2,10,0" Text="תאריך תחילת עבודה על הפרוייקט"/>
+                        </Grid>
+                      <Grid
                               Grid.Row="1"
                               Grid.Column="1"
-                              HelperText="מתי סיימת לעבוד על הפרוייקט"
-                              Margin="0,20,0,0" 
-                              LeadingViewPosition="Outside" 
-                              Hint="תאריך סיום עבודה"
-                            >
-                        <syncfusion:SfTextInputLayout.LeadingView>
+                            Margin="0,20,0,15" 
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
                             <materialDesign:PackIcon
-                                    Kind="Timeline"/>
-                        </syncfusion:SfTextInputLayout.LeadingView>
-                        <TextBox
-                                 MaxLength="15"
-                                />
-                    
-                    </syncfusion:SfTextInputLayout>  
-                    <syncfusion:SfTextInputLayout
+                                Grid.Column="0"
+                                Width="25"
+                                Height="25"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Foreground="Gray"
+                                       Kind="DateRange"/>
+                            <Border
+                                
+                                
+                                Padding="10"
+                               
+                                Grid.Column="1"
+                                
+                                Background="White" BorderBrush="Gray" BorderThickness="1.5,1.5,1.5,1.5" CornerRadius="5,5,5,5">
+                                <DatePicker
+                                    BorderBrush="Transparent"
+                                    SelectedDate="{Binding FinishProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                                </DatePicker>
+                            </Border>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Foreground="Gray" Margin="13,2,10,0" Text="מתי סיימת לעבוד על הפרוייקט"/>
+                        </Grid>
+                      <syncfusion:SfTextInputLayout
                               Grid.Row="2"
                               Grid.Column="0"
                               HelperText="באיזה שפות השתמשת"
@@ -494,8 +471,7 @@
                            
                              MultiSelectMode="Token"
                              SearchItemPath="ProgrammingLanguages"
-                             SelectedItems="{Binding DataContext.ProgrammingProjects.ToSelectedItem1,   
-                                        RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl} ,Mode=TwoWay}"
+                             SelectedItems="{Binding ProgrammingLanguges ,Mode=TwoWay}"
                              ShowClearButton="True"
                              Text="{Binding DataContext.ToText, Mode=TwoWay}"
                              TokensWrapMode="Wrap">
@@ -527,7 +503,7 @@
 
 
                         </syncfusion:SfTextInputLayout>
-                    <syncfusion:SfTextInputLayout
+                      <syncfusion:SfTextInputLayout
                           Grid.Row="2"
                           Grid.Column="1"
                           HelperText="מתולגיות עבודה"
@@ -551,7 +527,7 @@
                            
                              MultiSelectMode="Token"
                              SearchItemPath="Name"
-                             SelectedItems="{Binding ProfessionalKnowledge.DesignPatterns, Mode=TwoWay}"
+                             SelectedItems="{Binding DesignPatterns  ,Mode=TwoWay}"
                              ShowClearButton="True"
                              Text="{Binding ToText, Mode=TwoWay}"
                              TokensWrapMode="Wrap">
@@ -582,7 +558,7 @@
 
 
                         </syncfusion:SfTextInputLayout>
-                    <syncfusion:SfTextInputLayout
+                      <syncfusion:SfTextInputLayout
                           Grid.Row="3"
                           Grid.Column="0"
                           HelperText="בוא נדבר על טכנולוגיות"
@@ -599,14 +575,13 @@
                              VerticalAlignment="Center"
                              VerticalContentAlignment="Center"
                              AutoCompleteMode="Suggest"
-                             AutoCompleteSource="{Binding DataContext.CustomTechnologies  , 
+                             AutoCompleteSource="{Binding DataContext.CustomTechnologies, 
                                         RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
                              EnableAutoSize="True"
-                             
                              ImageMemberPath="Image"
                              MultiSelectMode="Token"
                              SearchItemPath="Name"
-                             SelectedItems="{Binding ProfessionalKnowledge.Technologys, Mode=TwoWay}"
+                             SelectedItems="{Binding Technologys, Mode=TwoWay}"
                              ShowClearButton="True"
                              Text="{Binding ToText, Mode=TwoWay}"
                              TokensWrapMode="Wrap">
@@ -637,14 +612,7 @@
 
 
                         </syncfusion:SfTextInputLayout>
-                        
-                    <!--<Line Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  
-                        Stroke="Gray"
-                          X1="300" Y1="20"  
-                          X2="1000" Y2="20" 
-                          StrokeThickness="4"/>-->
-
-                    <Button
+                      <Button
                              x:Name="removeButton"
                              Grid.Row="1"
                              Grid.RowSpan="2"
@@ -661,23 +629,25 @@
                             
                                     Kind="Delete" Foreground="#FF706F6F"/>
                     </Button>
-                    
-            </Grid>
+                   </Grid>
                 </Border>
-
         </DataTemplate>
+            <!--===============Template For Observable Collection======Finish=====-->
+
         </ResourceDictionary>
 
 
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="3.5*"/>
         </Grid.RowDefinitions>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
             
            <syncfusion:SfStepProgressBar
+             
+               Margin="0,0,0,30"
               x:Name="ContentCustomization"
               ActiveConnectorColor="Gray"
               ConnectorColor="#66673AB7"
@@ -686,16 +656,16 @@
               SelectedItemStatus="Indeterminate"
               VerticalAlignment="Center"
               HorizontalAlignment="Center"
+               Visibility="{Binding IsPogresssVisivle , Mode=TwoWay , Converter={StaticResource StepProgressBarVisibulty}}"
+               SelectedIndex="{Binding IndexPage , Mode=OneWayToSource}"
               >
-               <!--FlowDirection="RightToLeft"-->
-              <!--MarkerTemplateSelector="{StaticResource n}"-->
               
               <syncfusion:StepViewItem ContentTemplate="{StaticResource weolcme}" />
               <syncfusion:StepViewItem ContentTemplate="{StaticResource personal}"/>
               <syncfusion:StepViewItem ContentTemplate="{StaticResource work}"/>
-                <syncfusion:StepViewItem ContentTemplate="{StaticResource school}"/>
-                <syncfusion:StepViewItem ContentTemplate="{StaticResource technolgia}"/>
-                <syncfusion:StepViewItem ContentTemplate="{StaticResource project}"/>
+              <syncfusion:StepViewItem ContentTemplate="{StaticResource school}"/>
+              <syncfusion:StepViewItem ContentTemplate="{StaticResource technolgia}"/>
+              <syncfusion:StepViewItem ContentTemplate="{StaticResource project}"/>
             </syncfusion:SfStepProgressBar>
         </ScrollViewer>
         <syncfusion:WizardControl 
@@ -707,12 +677,13 @@
             IsTabStop="False" Background="Transparent" BorderBrush="Transparent" Foreground="Transparent"
             materialDesign:BottomDashedLineAdorner.Brush="Transparent" OpacityMask="{x:Null}"
             NextText="הבא"
+            FinishText="סיים"
             SelectedPageChanged="wizar_SelectedPageChanged"
             BackText="חזרור">
             
             <syncfusion:WizardPage
                 x:Name="wo" BannerBackground="Transparent" BorderBrush="Transparent" Background="Transparent"
-                                   Title="Woelcome"
+                                
                                    PageType="Exterior">
                 <Grid Margin="-50,-45,-5,-10">
                     <TextBlock FontSize="50" Margin="0,-80,0,0" Text="התחל ליצור את הקורות החיים שלך" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" />
@@ -720,7 +691,6 @@
                 </Grid>
 
             </syncfusion:WizardPage>
-         
             <syncfusion:WizardPage
                 Margin="20"
                 BannerBackground="Transparent" BorderBrush="Transparent" Background="Transparent"
@@ -752,7 +722,7 @@
                                 Kind="Rename"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                             MaxLength="15"
+                             MaxLength="25"
                             Text="{Binding PersonalInformation.FullName , Mode=TwoWay}"
                             
                             />
@@ -834,7 +804,7 @@
                     <syncfusion:SfTextInputLayout
                           Grid.Row="2"
                           Grid.Column="0"
-                          HelperText="הכנס כתובת מגורים"
+                          HelperText="הכנס עיר מגורים"
                           Margin="0,20,0,0" 
                          LeadingViewPosition="Outside" 
                          Hint="כתובת"
@@ -877,7 +847,7 @@
                                 Kind="Email"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                             MaxLength="15"
+                             MaxLength="30"
                             Text="{Binding PersonalInformation.Email}"
                             />
 
@@ -895,7 +865,7 @@
                                 Kind="Github"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                             MaxLength="15"
+                            
                             Text="{Binding PersonalInformation.LinkGitHub}"
                             />
 
@@ -913,7 +883,7 @@
                                 Kind="Web"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                             MaxLength="15"
+                            
                             Text="{Binding PersonalInformation.LinkYourSite}"
                             />
 
@@ -931,7 +901,7 @@
                                 Kind="Linkedin"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                             MaxLength="15"
+                          
                             Text="{Binding PersonalInformation.LinkLinkdin}"
                             />
 
@@ -949,7 +919,7 @@
                                 Kind="Facebook"/>
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                             MaxLength="15"
+                            
                             Text="{Binding PersonalInformation.LinkFacebook}"
                             />
 
@@ -959,7 +929,7 @@
             </syncfusion:WizardPage>
             <syncfusion:WizardPage
                 x:Name="woffff" BannerBackground="Transparent" BorderBrush="Transparent" Background="Transparent"
-                                   Title="Woelcome"
+                                  
                  Margin="20"
                                    PageType="Exterior">
                 <Grid Margin="-50,-45,-5,-10">
@@ -1494,7 +1464,27 @@
                 </Grid>
 
             </syncfusion:WizardPage>
+            <syncfusion:WizardPage
+                BannerBackground="Transparent" BorderBrush="Transparent" Background="Transparent"
+                 
+                                   PageType="Blank"
+                
+                >
+                <Grid x:Name="Root">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <syncfusion:SfRichTextRibbon x:Name="richTextRibbon" SnapsToDevicePixels="True"  DataContext="{Binding ElementName=richTextBoxAdv}"/>
+                    <syncfusion:SfRichTextBoxAdv x:Name="richTextBoxAdv" Grid.Row="1" LayoutType="Pages" AcceptsTab="True" AllowDrop="True">
+                        <syncfusion:SfRichTextBoxAdv.SpellChecker>
+                            <RichTextBoxAdv:SpellChecker IsEnabled="True">
+                            </RichTextBoxAdv:SpellChecker>
+                        </syncfusion:SfRichTextBoxAdv.SpellChecker>
+                    </syncfusion:SfRichTextBoxAdv>
+                </Grid>
 
+            </syncfusion:WizardPage>
         </syncfusion:WizardControl>
     </Grid>
 </UserControl>
