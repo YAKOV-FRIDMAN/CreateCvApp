@@ -45,7 +45,7 @@ namespace יצירת_קורות_חיים.Services
 
 
                     WParagraphStyle style = document.AddParagraphStyle("Normal") as WParagraphStyle;
-                    style.CharacterFormat.FontName = "Calibri";
+                    style.CharacterFormat.FontName = "Segoe UI";
                     style.CharacterFormat.FontSize = 11f;
                     style.ParagraphFormat.BeforeSpacing = 0;
                     style.ParagraphFormat.AfterSpacing = 8;
@@ -70,7 +70,7 @@ namespace יצירת_קורות_חיים.Services
                     paragraph.BreakCharacterFormat.UnderlineStyle = UnderlineStyle.Double;
                     WTextRange textRange = paragraph.AppendText(PersonalInformation.FullName) as WTextRange;
                     textRange.CharacterFormat.FontSize = 14f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Red;
                     textRange.CharacterFormat.Bold = true;
 
@@ -80,24 +80,24 @@ namespace יצירת_קורות_חיים.Services
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                     textRange = paragraph.AppendText("כתובת: " + PersonalInformation.Adderss + " " + PersonalInformation.Country) as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
                     paragraph = section.AddParagraph();
                     paragraph.ApplyStyle("Normal");
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
-                    textRange = paragraph.AppendText("נייד: " + PersonalInformation.Phone) as WTextRange;
+                    textRange = paragraph.AppendText($"נייד: {PersonalInformation.Phone}" ) as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
 
                     paragraph = section.AddParagraph();
                     paragraph.ApplyStyle("Normal");
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
-                    textRange = paragraph.AppendText("דואר אלקטורני: " + PersonalInformation.Email) as WTextRange;
+                    textRange = paragraph.AppendText(PersonalInformation.Email + " : דואר אלקרטוני") as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
                     if (PersonalInformation.LinkLinkdin != null && PersonalInformation.LinkLinkdin != "" && PersonalInformation.LinkLinkdin != string.Empty)
@@ -107,7 +107,7 @@ namespace יצירת_קורות_חיים.Services
                         paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                         textRange = paragraph.AppendHyperlink(PersonalInformation.LinkLinkdin, "Linkedin", HyperlinkType.WebLink) as WTextRange;
                         textRange.CharacterFormat.FontSize = 12f;
-                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.FontName = "Segoe UI";
                         textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
                     }
                     if (PersonalInformation.LinkGitHub != null && PersonalInformation.LinkGitHub != "" && PersonalInformation.LinkGitHub != string.Empty)
@@ -117,7 +117,7 @@ namespace יצירת_קורות_חיים.Services
                         paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                         textRange = paragraph.AppendHyperlink(PersonalInformation.LinkGitHub, "GitHub", HyperlinkType.WebLink) as WTextRange;
                         textRange.CharacterFormat.FontSize = 12f;
-                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.FontName = "Segoe UI";
                         textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
                     }
                     if (PersonalInformation.LinkYourSite != null && PersonalInformation.LinkYourSite != "" && PersonalInformation.LinkYourSite != string.Empty)
@@ -127,7 +127,7 @@ namespace יצירת_קורות_חיים.Services
                         paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                         textRange = paragraph.AppendHyperlink(PersonalInformation.LinkYourSite, "YourSite", HyperlinkType.WebLink) as WTextRange;
                         textRange.CharacterFormat.FontSize = 12f;
-                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.FontName = "Segoe UI";
                         textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
                     }
                     if (PersonalInformation.LinkFacebook != null && PersonalInformation.LinkFacebook != "" && PersonalInformation.LinkFacebook != string.Empty)
@@ -137,7 +137,7 @@ namespace יצירת_קורות_חיים.Services
                         paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                         textRange = paragraph.AppendHyperlink(PersonalInformation.LinkFacebook, "Facebook", HyperlinkType.WebLink) as WTextRange;
                         textRange.CharacterFormat.FontSize = 12f;
-                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.FontName = "Segoe UI";
                         textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
                     }
 
@@ -150,7 +150,7 @@ namespace יצירת_קורות_חיים.Services
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                     textRange = paragraph.AppendText("השכלה מקצועית") as WTextRange;
                     textRange.CharacterFormat.FontSize = 14f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Blue;
                     textRange.CharacterFormat.Bold = true;
 
@@ -160,7 +160,7 @@ namespace יצירת_קורות_חיים.Services
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                     textRange = paragraph.AppendText(Education.TypeOfStudy + " " + Education.School) as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
                     paragraph = section.AddParagraph();
@@ -168,7 +168,7 @@ namespace יצירת_קורות_חיים.Services
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                     textRange = paragraph.AppendText("תחילת לימודים " + Education.Start.ToString("dd/MM/yyyy") + " סיום לימודים " + Education.Finish.ToString("dd/MM/yyyy")) as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
 
@@ -187,9 +187,9 @@ namespace יצירת_קורות_חיים.Services
                     paragraph = section.AddParagraph();
                     paragraph.ApplyStyle("Normal");
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
-                    textRange = paragraph.AppendText("שפות תכנות " + programmingLanguages) as WTextRange;
+                    textRange = paragraph.AppendText(programmingLanguages + "שפות תכנות ") as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
                     string technologys = "";
@@ -201,9 +201,9 @@ namespace יצירת_קורות_חיים.Services
                     paragraph = section.AddParagraph();
                     paragraph.ApplyStyle("Normal");
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
-                    textRange = paragraph.AppendText("טכנולגיות " + technologys) as WTextRange;
+                    textRange = paragraph.AppendText(technologys + "טכנולגיות ") as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
                     string ide = "";
@@ -215,9 +215,9 @@ namespace יצירת_קורות_חיים.Services
                     paragraph = section.AddParagraph();
                     paragraph.ApplyStyle("Normal");
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
-                    textRange = paragraph.AppendText("סביביות עבודה " + ide) as WTextRange;
+                    textRange = paragraph.AppendText(ide + " סביביות עבודה " ) as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
                     string designPatterns = "";
@@ -230,9 +230,9 @@ namespace יצירת_קורות_חיים.Services
                     paragraph = section.AddParagraph();
                     paragraph.ApplyStyle("Normal");
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
-                    textRange = paragraph.AppendText("ידע בעבודה במתודולוגיות " + designPatterns) as WTextRange;
+                    textRange = paragraph.AppendText(designPatterns + " ידע בעבודה במתודולוגיות ") as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
                     #endregion
@@ -245,7 +245,7 @@ namespace יצירת_קורות_חיים.Services
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                     textRange = paragraph.AppendText("ניסיון תעסוקתי") as WTextRange;
                     textRange.CharacterFormat.FontSize = 14f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Blue;
                     textRange.CharacterFormat.Bold = true;
 
@@ -257,7 +257,7 @@ namespace יצירת_קורות_חיים.Services
                         paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                         textRange = paragraph.AppendText(item.Start.Year + "--" + item.Job + " " + item.Role ) as WTextRange;
                         textRange.CharacterFormat.FontSize = 12f;
-                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.FontName = "Segoe UI";
                         textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
                     }
@@ -270,12 +270,40 @@ namespace יצירת_קורות_חיים.Services
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
                     textRange = paragraph.AppendText("פרוייקטים") as WTextRange;
                     textRange.CharacterFormat.FontSize = 14f;
-                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.FontName = "Segoe UI";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Blue;
                     textRange.CharacterFormat.Bold = true;
 
                     foreach (var item in ProgrammingProjects)
                     {
+                        string langua = "";
+                        foreach (var item1 in item.ProgrammingLanguges)
+                        {
+                            langua += ((CustomProgrammingLanguages)item1).ProgrammingLanguages + ", ";
+                        }
+
+
+                        string design = "";
+                        foreach (var item1 in item.DesignPatterns)
+                        {
+                            design += ((DesignPattern)item1).Name + ", ";
+                        }
+
+                        string technologys1 = "";
+                        foreach (var item1 in item.Technologys)
+                        {
+                            technologys1 += ((CustomTechnology)item1).Name + ", ";
+                        }
+
+
+
+                        paragraph = section.AddParagraph();
+                        paragraph.ApplyStyle("Normal");
+                        paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                        textRange = paragraph.AppendText($"התחלתי את הפרוייקט {item.Descritpion} ב {item.StartProject.ToString("dd/MM/yyyy")} אני הייתי {item.Role} השתמשתי בשפות {langua} בנוי בטכנולוגיה {technologys1} מתוגלוגית עבודה {design} וכן סיימתי את הפרוייקט ב  {item.FinishProject.ToString("dd/MM/yyyy")}") as WTextRange;
+                        textRange.CharacterFormat.FontSize = 12f;
+                        textRange.CharacterFormat.FontName = "Segoe UI";
+                        textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
                     }
 

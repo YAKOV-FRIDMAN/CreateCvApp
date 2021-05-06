@@ -12,7 +12,7 @@ namespace יצירת_קורות_חיים.Models
     public class CustomProgrammingLanguages
     {
         public string ProgrammingLanguages { get; set; }
-        
+
         public PackIcon Icon { get; set; } = new PackIcon();
         public CustomProgrammingLanguages(string programmingLanguages)
         {

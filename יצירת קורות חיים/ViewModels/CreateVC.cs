@@ -15,6 +15,9 @@ using יצירת_קורות_חיים.Utils;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
 using יצירת_קורות_חיים.Services;
+using System.Threading;
+using System.Runtime;
+using System.Diagnostics;
 
 namespace יצירת_קורות_חיים.ViewModels
 {
@@ -150,19 +153,57 @@ namespace יצירת_קורות_חיים.ViewModels
         public RelayCommand RemoveWorkExperience { get; set; }
         public RelayCommand RemovProject { get; set; }
         public RelayCommand OpenProjectVc { get; set; }
+        public RelayCommandAsync OpenProjectVcAsync { get; set; }
         public event EventHandler LoadWord;
-        private string toText;
-        public string ToText
+        public event EventHandler RefreshPage;
+
+        private int loadBinProgress;
+
+        public int LoadBinProgress
         {
-            get { return toText; }
+            get { return loadBinProgress; }
             set
             {
-                toText = value;
+                loadBinProgress = value;
                 OnPropertyChanged();
             }
         }
+
+        private bool isBus;
+
+        public bool IsBus
+        {
+            get { return isBus; }
+            set
+            {
+                isBus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        Thread t;
+        Thread t2;
+
+        private void Test(object obj)
+        {
+
+            GetCityFromXmlAsync();
+            GetCityFromXmlAsync();
+            GetSchoolFromXmlAsync();
+            GetCustomTechnologiesFromXmlAsync();
+            GetDesignPatternsFromXml();
+            // GetCompaniesFromXml();
+            // DeserializeJsonAsync();
+            DeserializeAsync();
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+            GC.Collect();
+
+
+        }
+
         public CreateVC()
         {
+
             PersonalInformation = new PersonalInformation();
             WorkExperiences = new ObservableCollection<WorkExperience>();
             WorkExperiences.Add(new WorkExperience());
@@ -182,14 +223,13 @@ namespace יצירת_קורות_חיים.ViewModels
             AddProject = new RelayCommand(FuncAddProject);
             RemovProject = new RelayCommand(FuncRemovProject);
             OpenProjectVc = new RelayCommand(FunOpenProjctVc);
+            OpenProjectVcAsync = new RelayCommandAsync(FunOpenProjctVcAsync);
             //Citys = new ObservableCollection<string>();
             GetCountries();
-            GetCityFromXml();
-            GetSchoolFromXml();
-            GetCustomTechnologiesFromXml();
-            GetDesignPatternsFromXml();
-            // GetCompaniesFromXml();
-            DeserializeJson();
+            t = new Thread(Test);
+            t.SetApartmentState(ApartmentState.MTA);
+            t.Start();
+
             //Deserialize();
             // GetCompaniesFromXmlAsync();
 
@@ -197,10 +237,87 @@ namespace יצירת_קורות_חיים.ViewModels
 
         }
 
+        private async Task FunOpenProjctVcAsync()
+        {
+            IsBus = true;
+            LoadBinProgress = 10;
+            //await Task.Run(() =>
+            //{
+            //});
+
+            Debug.WriteLine("----------befor Deserialize All Vc Async-----------");
+            Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+            DeserializeAllVc();
+            // await DeserializeAllVcAsync();
+            Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+            Debug.WriteLine("----------After Deserialize All Vc Async-----------");
+            LoadBinProgress = 50;
+            Debug.WriteLine("----------befor RefreshPage-----------");
+            Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+            RefreshPage?.Invoke(null, new EventArgs());
+            Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+            Debug.WriteLine("----------After RefreshPage-----------");
+            LoadBinProgress = 100;
+            IsBus = false;
+            Debug.WriteLine("----------befor  GC.Collect()-----------");
+            Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+            GC.Collect();
+            Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+            Debug.WriteLine("----------After  GC.Collect()-----------");
+            //t2 = new Thread(Test2);
+            //t2.SetApartmentState(ApartmentState.STA);
+            //t2.Start();
+            //RefreshPage?.Invoke(null, new EventArgs());
+
+            // await Task.Run(() =>
+            // {
+
+            // });
+
+            //await Task.Run(() =>
+            //{
+            //});
+
+
+
+            // await Task.Run(() =>
+            //  {
+
+            //  });
+
+        }
+
+        private void Test2(object obj)
+        {
+            DeserializeAllVcAsync();
+            LoadBinProgress = 50;
+            //RefreshPage?.Invoke(null, new EventArgs());
+            //DeserializeAllVcAsync();
+            LoadBinProgress = 100;
+            IsBus = false;
+        }
+
         private void FunOpenProjctVc(object obj)
         {
+            Task.Run(() =>
+            {
+                LoadBinProgress = 10;
+            });
+
             DeserializeAllVc();
-            LoadWord?.Invoke(null, new EventArgs());
+
+            Task.Run(() =>
+            {
+                LoadBinProgress = 50;
+            });
+
+            RefreshPage?.Invoke(null, new EventArgs());
+
+            Task.Run(() =>
+            {
+                LoadBinProgress = 100;
+            });
         }
 
         private void FunFinish()
@@ -303,6 +420,70 @@ namespace יצירת_קורות_חיים.ViewModels
             fs.Dispose();
         }
 
+        async Task DeserializeAllVcAsync()
+        {
+            TestModel testModel = new TestModel();
+            await Task.Run(() =>
+            {
+                string filename = Path.Combine(@"Data\", "CreateCv.bin");
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream fs = File.Open(filename, FileMode.Open);
+                object obj = formatter.Deserialize(fs);
+                fs.Flush();
+                fs.Close();
+                fs.Dispose();
+                testModel = (TestModel)obj;
+                PersonalInformation = testModel.PersonalInformation;
+                Education = testModel.Education;
+                WorkExperiences = new ObservableCollection<WorkExperience>(testModel.WorkExperiences);
+            });
+
+            foreach (var item in testModel.ProfessionalKnowledge.ProgrammingLanguages)
+            {
+                ProfessionalKnowledge.ProgrammingLanguages.Add(new CustomProgrammingLanguages((string)item));
+            }
+
+            ProfessionalKnowledge.Technologys = testModel.ProfessionalKnowledge.Technologys;
+
+            foreach (var item in testModel.ProfessionalKnowledge.IDEs)
+            {
+                ProfessionalKnowledge.IDEs.Add(new CustomIDE((string)item));
+            }
+            await Task.Run(() =>
+            {
+                ProfessionalKnowledge.DesignPatterns = testModel.ProfessionalKnowledge.DesignPatterns;
+                ProgrammingProjects = new ObservableCollection<ProgrammingProject>();
+            });
+            foreach (var item in testModel.ProgrammingProjects)
+            {
+                ProgrammingProject programmingProject = new ProgrammingProject();
+                await Task.Run(() =>
+                {
+                    programmingProject.Descritpion = item.Descritpion;
+                    programmingProject.Role = item.Role;
+                    programmingProject.StartProject = item.StartProject;
+                    programmingProject.FinishProject = item.FinishProject;
+                    programmingProject.DesignPatterns = item.DesignPatterns;
+                });
+
+                foreach (var item1 in item.ProgrammingLanguges)
+                {
+                    programmingProject.ProgrammingLanguges.Add(new CustomProgrammingLanguages((string)item1));
+                }
+                if (item.Technologys != null)
+                {
+                    programmingProject.Technologys = new ObservableCollection<object>(item.Technologys);
+                }
+
+
+
+                ProgrammingProjects.Add(programmingProject);
+            }
+
+
+
+        }
+
         //void GwtGenricDataFromXml<T1 , T2>(string path)
         //{
         //    string file = HelperFile.GetRootPath();
@@ -356,28 +537,42 @@ namespace יצירת_קורות_חיים.ViewModels
         }
 
 
-        void DeserializeJson()
+        async Task DeserializeJsonAsync()
         {
-            string filename = Path.Combine(@"Data\", "CompanyJson.json");
-            string text = File.ReadAllText(filename);
-            var company = JsonConvert.DeserializeObject<Companys>(text);
-            Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
+            await Task.Run(() =>
+            {
+                Debug.WriteLine("----------befor Deserialize Json Async-----------");
+                Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+                string filename = Path.Combine(@"Data\", "CompanyJson.json");
+                Task<string> text = File.ReadAllTextAsync(filename);
+                var company = JsonConvert.DeserializeObject<Companys>(text.Result);
+                Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
+                Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+                Debug.WriteLine("----------after Deserialize Json Async-----------");
+            });
         }
 
 
         [STAThread]
-        public void Deserialize()
+        public async Task DeserializeAsync()
         {
-            string filename = HelperFile.GetRootPath();
-            filename += "/Data/CompanyBin.bin";
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream fs = File.Open(filename, FileMode.Open);
-            object obj = formatter.Deserialize(fs);
-            Companys company = (Companys)obj;
-            fs.Flush();
-            fs.Close();
-            fs.Dispose();
-            Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
+            await Task.Run(() =>
+            {
+                Debug.WriteLine("----------befor Deserialize Bin Async-----------");
+                Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+                string filename = HelperFile.GetRootPath();
+                filename += "/Data/CompanyBin.bin";
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream fs = File.Open(filename, FileMode.Open);
+                object obj = formatter.Deserialize(fs);
+                Companys company = (Companys)obj;
+                fs.Flush();
+                fs.Close();
+                fs.Dispose();
+                Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
+                Debug.WriteLine(DateTime.Now.Second + "--" + DateTime.Now.Millisecond);
+                Debug.WriteLine("----------after Deserialize Bin Async-----------");
+            });
         }
 
         private async Task GetCompaniesFromXmlAsync()
@@ -396,46 +591,55 @@ namespace יצירת_קורות_חיים.ViewModels
             });
         }
 
-        private void GetDesignPatternsFromXml()
+        private async Task GetDesignPatternsFromXml()
         {
-            string filename = Path.Combine(@"Data\", "DesignPattern.xml");
-            XmlSerializer serializer = new XmlSerializer(typeof(DesignPatterns));
-            string text = File.ReadAllText(filename);
-            using (StringReader reader = new StringReader(text))
+            await Task.Run(() =>
             {
-                var designPatterns = (DesignPatterns)serializer.Deserialize(reader);
-                DesignPatterns = new ObservableCollection<DesignPattern>(designPatterns.DesignPattern.ToList());
-            }
-        }
-
-        private void GetCustomTechnologiesFromXml()
-        {
-            string filename = Path.Combine(@"Data\", "Technology.xml");
-            XmlSerializer serializer = new XmlSerializer(typeof(Technologies));
-            string text = File.ReadAllText(filename);
-            filename = "";
-            using (StringReader reader = new StringReader(text))
-            {
-                var Technologies = (Technologies)serializer.Deserialize(reader);
-                foreach (var item in Technologies.Technology)
+                string filename = Path.Combine(@"Data\", "DesignPattern.xml");
+                XmlSerializer serializer = new XmlSerializer(typeof(DesignPatterns));
+                Task<string> text = File.ReadAllTextAsync(filename);
+                using (StringReader reader = new StringReader(text.Result))
                 {
-                    var s1 = item.Image;
-                    item.Image = filename + @"/Assets/" + s1;
+                    var designPatterns = (DesignPatterns)serializer.Deserialize(reader);
+                    DesignPatterns = new ObservableCollection<DesignPattern>(designPatterns.DesignPattern.ToList());
                 }
-                CustomTechnologies = new ObservableCollection<CustomTechnology>(Technologies.Technology.ToList());
-            }
+            });
         }
 
-        private void GetSchoolFromXml()
+        private async Task GetCustomTechnologiesFromXmlAsync()
         {
-            string filename = Path.Combine(@"Data\", "School.xml");
-            XmlSerializer serializer = new XmlSerializer(typeof(Schools));
-            string text = File.ReadAllText(filename);
-            using (StringReader reader = new StringReader(text))
+            await Task.Run(() =>
             {
-                var test = (Schools)serializer.Deserialize(reader);
-                Schools = new ObservableCollection<string>(test.School.Select(_ => _.Name).ToList());
-            }
+                string filename = Path.Combine(@"Data\", "Technology.xml");
+                XmlSerializer serializer = new XmlSerializer(typeof(Technologies));
+                Task<string> text = File.ReadAllTextAsync(filename);
+                filename = "";
+                using (StringReader reader = new StringReader(text.Result))
+                {
+                    var Technologies = (Technologies)serializer.Deserialize(reader);
+                    foreach (var item in Technologies.Technology)
+                    {
+                        var s1 = item.Image;
+                        item.Image = filename + @"/Assets/" + s1;
+                    }
+                    CustomTechnologies = new ObservableCollection<CustomTechnology>(Technologies.Technology.ToList());
+                }
+            });
+        }
+
+        private async Task GetSchoolFromXmlAsync()
+        {
+            await Task.Run(() =>
+            {
+                string filename = Path.Combine(@"Data\", "School.xml");
+                XmlSerializer serializer = new XmlSerializer(typeof(Schools));
+                Task<string> text = File.ReadAllTextAsync(filename);
+                using (StringReader reader = new StringReader(text.Result))
+                {
+                    var test = (Schools)serializer.Deserialize(reader);
+                    Schools = new ObservableCollection<string>(test.School.Select(_ => _.Name).ToList());
+                }
+            });
         }
 
         private void GetCountries()
@@ -451,16 +655,19 @@ namespace יצירת_קורות_חיים.ViewModels
             }
         }
 
-        void GetCityFromXml()
+        async Task GetCityFromXmlAsync()
         {
-            string filename = Path.Combine(@"Data\", "Citys.xml");
-            XmlSerializer serializer = new XmlSerializer(typeof(CityDada));
-            string text = File.ReadAllText(filename);
-            using (StringReader reader = new StringReader(text))
+            await Task.Run(() =>
             {
-                var test = (CityDada)serializer.Deserialize(reader);
-                Citys = new ObservableCollection<string>(test.ROW.Select(_ => _.שםישוב).ToList());
-            }
+                string filename = Path.Combine(@"Data\", "Citys.xml");
+                XmlSerializer serializer = new XmlSerializer(typeof(CityDada));
+                Task<string> text = File.ReadAllTextAsync(filename);
+                using (StringReader reader = new StringReader(text.Result))
+                {
+                    var test = (CityDada)serializer.Deserialize(reader);
+                    Citys = new ObservableCollection<string>(test.ROW.Select(_ => _.שםישוב).ToList());
+                }
+            });
         }
         private void FillCustomProgrammingLanguages()
         {

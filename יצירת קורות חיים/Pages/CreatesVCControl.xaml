@@ -16,6 +16,7 @@
              xmlns:models="clr-namespace:יצירת_קורות_חיים.Models"
              d:DesignHeight="450" d:DesignWidth="800"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:busy="clr-namespace:Syncfusion.Windows.Controls.Notification;assembly=Syncfusion.SfBusyIndicator.WPF"
              xmlns:skinManager="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
              skinManager:SfSkinManager.VisualStyle="Office2019HighContrastWhite"
              >
@@ -483,9 +484,9 @@
                            
                              MultiSelectMode="Token"
                              SearchItemPath="ProgrammingLanguages"
-                             SelectedItems="{Binding ProgrammingLanguges ,Mode=TwoWay}"
+                             SelectedItems="{Binding ProgrammingLanguges ,Mode=TwoWay , UpdateSourceTrigger=PropertyChanged , NotifyOnSourceUpdated=True ,NotifyOnTargetUpdated=True}"
                              ShowClearButton="True"
-                             Text="{Binding DataContext.ToText, Mode=TwoWay}"
+                             
                              TokensWrapMode="Wrap">
                                 <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
                                     <DataTemplate>
@@ -539,9 +540,9 @@
                            
                              MultiSelectMode="Token"
                              SearchItemPath="Name"
-                             SelectedItems="{Binding DesignPatterns  ,Mode=TwoWay}"
+                             SelectedItems="{Binding DesignPatterns  ,Mode=TwoWay , UpdateSourceTrigger=PropertyChanged ,NotifyOnSourceUpdated=True ,NotifyOnTargetUpdated=True}"
                              ShowClearButton="True"
-                             Text="{Binding ToText, Mode=TwoWay}"
+                            
                              TokensWrapMode="Wrap">
                                 <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
                                     <DataTemplate>
@@ -593,9 +594,9 @@
                              ImageMemberPath="Image"
                              MultiSelectMode="Token"
                              SearchItemPath="Name"
-                             SelectedItems="{Binding Technologys, Mode=TwoWay}"
+                             SelectedItems="{Binding Technologys, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged , NotifyOnSourceUpdated=True , NotifyOnTargetUpdated=True}"
                              ShowClearButton="True"
-                             Text="{Binding ToText, Mode=TwoWay}"
+                             
                              TokensWrapMode="Wrap">
                                 <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
                                     <DataTemplate>
@@ -701,13 +702,18 @@
                 x:Name="wo" BannerBackground="Transparent" BorderBrush="Transparent" Background="Transparent"
                                 
                                    PageType="Exterior">
+                <busy:SfBusyIndicator
+            x:Name="busyIndicator"
+            Grid.Row="0"
+            IsBusy="{Binding IsBus, Mode=TwoWay}">
+                    
                 <Grid Margin="-50,-45,-5,-10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock FontSize="50"  FontFamily="Segoe UI"    Margin="0,200,0,0" Text="התחל ליצור את הקורות החיים שלך" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Black" />
-                    <Button
+                    <!--<Button
                         Grid.Row="1"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -715,8 +721,39 @@
                         Command="{Binding OpenProjectVc}"
                         Margin="50">
                         
-                    </Button>
+                    </Button>-->
+                    <syncfusion:SfCircularProgressBar
+                       x:Name="VideoPlayerProgressBar"
+                       Width="75"
+                       Height="75"
+                       Margin="5"
+                       IndicatorInnerRadius="0.65"
+                       IndicatorOuterRadius="0.7"
+                       Progress="{Binding Path=LoadBinProgress, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged , NotifyOnSourceUpdated=True , NotifyOnTargetUpdated=True}"
+                       TrackInnerRadius="0">
+                        <syncfusion:SfCircularProgressBar.ProgressContent>
+                            <Grid>
+                                <Button
+                                     x:Name="PlayButton"
+                                     Width="30"
+                                     Height="30"
+                                     Background="#00FFFFFF"
+                                     BorderThickness="0"
+                                     Command="{Binding OpenProjectVcAsync}"
+                                     Visibility="Visible">
+                                         <!--<Path
+                                             Width="24"
+                                             Height="24"
+                                             Data="M8 5v14l11-7z"
+                                             Fill="{Binding ElementName=VideoPlayerProgressBar, Path=ProgressColor}" />-->
+                                    <materialDesign:PackIcon Kind="OpenInBrowser" Foreground="Purple" Width="20" Height="20" />
+                                </Button>
+                           </Grid>
+                        </syncfusion:SfCircularProgressBar.ProgressContent>
+                    </syncfusion:SfCircularProgressBar>
+
                 </Grid>
+            </busy:SfBusyIndicator>
 
             </syncfusion:WizardPage>
             <syncfusion:WizardPage
@@ -1238,9 +1275,9 @@
                            
                              MultiSelectMode="Token"
                              SearchItemPath="ProgrammingLanguages"
-                             SelectedItems="{Binding ProfessionalKnowledge.ProgrammingLanguages, Mode=TwoWay}"
+                             SelectedItems="{Binding ProfessionalKnowledge.ProgrammingLanguages, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged , NotifyOnSourceUpdated=True , NotifyOnTargetUpdated=True}"
                              ShowClearButton="True"
-                             Text="{Binding ToText, Mode=TwoWay}"
+                           
                              TokensWrapMode="Wrap">
                             <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
                                 <DataTemplate>
@@ -1294,7 +1331,7 @@
                              SearchItemPath="Name"
                              SelectedItems="{Binding ProfessionalKnowledge.Technologys, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True ,UpdateSourceTrigger=PropertyChanged }"
                              ShowClearButton="True"
-                             Text="{Binding ToText, Mode=TwoWay}"
+                            
                              TokensWrapMode="Wrap">
                             <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
                                 <DataTemplate>
@@ -1348,7 +1385,7 @@
                              SearchItemPath="Ide"
                              SelectedItems="{Binding ProfessionalKnowledge.IDEs, Mode=TwoWay , NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True ,UpdateSourceTrigger=PropertyChanged}"
                              ShowClearButton="True"
-                             Text="{Binding ToText, Mode=TwoWay}"
+                             
                              TokensWrapMode="Wrap">
                             <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
                                 <DataTemplate>
@@ -1403,7 +1440,7 @@
                              SearchItemPath="Name"
                              SelectedItems="{Binding ProfessionalKnowledge.DesignPatterns, Mode=TwoWay}"
                              ShowClearButton="True"
-                             Text="{Binding ToText, Mode=TwoWay}"
+                             
                              TokensWrapMode="Wrap">
                             <syncfusion:SfTextBoxExt.AutoCompleteItemTemplate>
                                 <DataTemplate>

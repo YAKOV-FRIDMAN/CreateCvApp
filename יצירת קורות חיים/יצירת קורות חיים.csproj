@@ -82,6 +82,7 @@
     <PackageReference Include="Syncfusion.Grouping.Base" Version="19.1.0.59" />
     <PackageReference Include="Syncfusion.Licensing" Version="19.1.0.59" />
     <PackageReference Include="Syncfusion.Pdf.Wpf" Version="19.1.0.59" />
+    <PackageReference Include="Syncfusion.SfBusyIndicator.WPF" Version="19.1.0.59" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="19.1.0.59" />
     <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="19.1.0.59" />
     <PackageReference Include="Syncfusion.Shared.Base" Version="19.1.0.59" />
