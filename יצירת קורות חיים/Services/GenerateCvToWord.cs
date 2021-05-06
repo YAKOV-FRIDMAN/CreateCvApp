@@ -10,6 +10,7 @@ using Syncfusion.DocToPDFConverter;
 using Syncfusion.Pdf;
 using יצירת_קורות_חיים.Models;
 using System.Windows;
+//using System.Collections.ObjectModel;
 
 namespace יצירת_קורות_חיים.Services
 {
@@ -17,10 +18,18 @@ namespace יצירת_קורות_חיים.Services
     {
         public string PathToSave { get; }
         public PersonalInformation PersonalInformation { get; set; }
-        public GenerateCvToWord(string pathToSave, PersonalInformation personalInformation)
+        public Education Education { get; set; }
+        public ProfessionalKnowledge ProfessionalKnowledge { get; set; }
+        public List<WorkExperience> WorkExperiences { get; set; }
+        public List<ProgrammingProject> ProgrammingProjects { get; set; }
+        public GenerateCvToWord(string pathToSave, PersonalInformation personalInformation, Education education, ProfessionalKnowledge professionalKnowledge , List<WorkExperience> workExperiences , List<ProgrammingProject> programmingProjects)
         {
             PathToSave = pathToSave;
             PersonalInformation = personalInformation;
+            Education = education;
+            ProfessionalKnowledge = professionalKnowledge;
+            WorkExperiences = workExperiences;
+            ProgrammingProjects = programmingProjects;
             Generate();
         }
 
@@ -54,6 +63,8 @@ namespace יצירת_קורות_חיים.Services
                     style.ParagraphFormat.OutlineLevel = OutlineLevel.Level1;
                     IWParagraph paragraph = section.HeadersFooters.Header.AddParagraph();
 
+                    #region PersonalInformation
+
                     paragraph.ApplyStyle("Normal");
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Center;
                     paragraph.BreakCharacterFormat.UnderlineStyle = UnderlineStyle.Double;
@@ -62,7 +73,7 @@ namespace יצירת_קורות_חיים.Services
                     textRange.CharacterFormat.FontName = "Calibri";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Red;
                     textRange.CharacterFormat.Bold = true;
-                   
+
 
                     paragraph = section.AddParagraph();
                     paragraph.ApplyStyle("Normal");
@@ -71,7 +82,7 @@ namespace יצירת_קורות_חיים.Services
                     textRange.CharacterFormat.FontSize = 12f;
                     textRange.CharacterFormat.FontName = "Calibri";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
-                    
+
                     paragraph = section.AddParagraph();
                     paragraph.ApplyStyle("Normal");
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
@@ -89,14 +100,184 @@ namespace יצירת_קורות_חיים.Services
                     textRange.CharacterFormat.FontName = "Calibri";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
+                    if (PersonalInformation.LinkLinkdin != null && PersonalInformation.LinkLinkdin != "" && PersonalInformation.LinkLinkdin != string.Empty)
+                    {
+                        paragraph = section.AddParagraph();
+                        paragraph.ApplyStyle("Normal");
+                        paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                        textRange = paragraph.AppendHyperlink(PersonalInformation.LinkLinkdin, "Linkedin", HyperlinkType.WebLink) as WTextRange;
+                        textRange.CharacterFormat.FontSize = 12f;
+                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+                    }
+                    if (PersonalInformation.LinkGitHub != null && PersonalInformation.LinkGitHub != "" && PersonalInformation.LinkGitHub != string.Empty)
+                    {
+                        paragraph = section.AddParagraph();
+                        paragraph.ApplyStyle("Normal");
+                        paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                        textRange = paragraph.AppendHyperlink(PersonalInformation.LinkGitHub, "GitHub", HyperlinkType.WebLink) as WTextRange;
+                        textRange.CharacterFormat.FontSize = 12f;
+                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+                    }
+                    if (PersonalInformation.LinkYourSite != null && PersonalInformation.LinkYourSite != "" && PersonalInformation.LinkYourSite != string.Empty)
+                    {
+                        paragraph = section.AddParagraph();
+                        paragraph.ApplyStyle("Normal");
+                        paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                        textRange = paragraph.AppendHyperlink(PersonalInformation.LinkYourSite, "YourSite", HyperlinkType.WebLink) as WTextRange;
+                        textRange.CharacterFormat.FontSize = 12f;
+                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+                    }
+                    if (PersonalInformation.LinkFacebook != null && PersonalInformation.LinkFacebook != "" && PersonalInformation.LinkFacebook != string.Empty)
+                    {
+                        paragraph = section.AddParagraph();
+                        paragraph.ApplyStyle("Normal");
+                        paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                        textRange = paragraph.AppendHyperlink(PersonalInformation.LinkFacebook, "Facebook", HyperlinkType.WebLink) as WTextRange;
+                        textRange.CharacterFormat.FontSize = 12f;
+                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+                    }
+
+                    #endregion
+
+                    #region Education
+
                     paragraph = section.AddParagraph();
                     paragraph.ApplyStyle("Normal");
                     paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
-                    textRange = paragraph.AppendHyperlink( PersonalInformation.LinkLinkdin, "Linkedin", HyperlinkType.WebLink) as WTextRange;
+                    textRange = paragraph.AppendText("השכלה מקצועית") as WTextRange;
+                    textRange.CharacterFormat.FontSize = 14f;
+                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.TextColor = System.Drawing.Color.Blue;
+                    textRange.CharacterFormat.Bold = true;
+
+
+                    paragraph = section.AddParagraph();
+                    paragraph.ApplyStyle("Normal");
+                    paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                    textRange = paragraph.AppendText(Education.TypeOfStudy + " " + Education.School) as WTextRange;
                     textRange.CharacterFormat.FontSize = 12f;
                     textRange.CharacterFormat.FontName = "Calibri";
                     textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
 
+                    paragraph = section.AddParagraph();
+                    paragraph.ApplyStyle("Normal");
+                    paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                    textRange = paragraph.AppendText("תחילת לימודים " + Education.Start.ToString("dd/MM/yyyy") + " סיום לימודים " + Education.Finish.ToString("dd/MM/yyyy")) as WTextRange;
+                    textRange.CharacterFormat.FontSize = 12f;
+                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+
+
+                    #endregion
+
+
+                    #region Professional Knowledge 
+
+
+                    string programmingLanguages = "";
+                    foreach (var item in ProfessionalKnowledge.ProgrammingLanguages)
+                    {
+                        programmingLanguages += ((CustomProgrammingLanguages)item).ProgrammingLanguages + ", ";
+                    }
+
+                    paragraph = section.AddParagraph();
+                    paragraph.ApplyStyle("Normal");
+                    paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                    textRange = paragraph.AppendText("שפות תכנות " + programmingLanguages) as WTextRange;
+                    textRange.CharacterFormat.FontSize = 12f;
+                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+
+                    string technologys = "";
+                    foreach (var item in ProfessionalKnowledge.Technologys)
+                    {
+                        technologys += ((CustomTechnology)item).Name + ", ";
+                    }
+
+                    paragraph = section.AddParagraph();
+                    paragraph.ApplyStyle("Normal");
+                    paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                    textRange = paragraph.AppendText("טכנולגיות " + technologys) as WTextRange;
+                    textRange.CharacterFormat.FontSize = 12f;
+                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+
+                    string ide = "";
+                    foreach (var item in ProfessionalKnowledge.IDEs)
+                    {
+                        ide += ((CustomIDE)item).Ide + ", ";
+                    }
+
+                    paragraph = section.AddParagraph();
+                    paragraph.ApplyStyle("Normal");
+                    paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                    textRange = paragraph.AppendText("סביביות עבודה " + ide) as WTextRange;
+                    textRange.CharacterFormat.FontSize = 12f;
+                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+
+                    string designPatterns = "";
+                    foreach (var item in ProfessionalKnowledge.DesignPatterns)
+                    {
+                        designPatterns += ((DesignPattern)item).Name + ", ";
+                    }
+
+
+                    paragraph = section.AddParagraph();
+                    paragraph.ApplyStyle("Normal");
+                    paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                    textRange = paragraph.AppendText("ידע בעבודה במתודולוגיות " + designPatterns) as WTextRange;
+                    textRange.CharacterFormat.FontSize = 12f;
+                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+
+                    #endregion
+
+                    #region WorkExperiences
+               
+
+                    paragraph = section.AddParagraph();
+                    paragraph.ApplyStyle("Normal");
+                    paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                    textRange = paragraph.AppendText("ניסיון תעסוקתי") as WTextRange;
+                    textRange.CharacterFormat.FontSize = 14f;
+                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.TextColor = System.Drawing.Color.Blue;
+                    textRange.CharacterFormat.Bold = true;
+
+
+                    foreach (var item in WorkExperiences)
+                    {
+                        paragraph = section.AddParagraph();
+                        paragraph.ApplyStyle("Normal");
+                        paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                        textRange = paragraph.AppendText(item.Start.Year + "--" + item.Job + " " + item.Role ) as WTextRange;
+                        textRange.CharacterFormat.FontSize = 12f;
+                        textRange.CharacterFormat.FontName = "Calibri";
+                        textRange.CharacterFormat.TextColor = System.Drawing.Color.Black;
+
+                    }
+
+                    #endregion
+
+
+                    paragraph = section.AddParagraph();
+                    paragraph.ApplyStyle("Normal");
+                    paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Right;
+                    textRange = paragraph.AppendText("פרוייקטים") as WTextRange;
+                    textRange.CharacterFormat.FontSize = 14f;
+                    textRange.CharacterFormat.FontName = "Calibri";
+                    textRange.CharacterFormat.TextColor = System.Drawing.Color.Blue;
+                    textRange.CharacterFormat.Bold = true;
+
+                    foreach (var item in ProgrammingProjects)
+                    {
+
+                    }
 
 
                     if (true)

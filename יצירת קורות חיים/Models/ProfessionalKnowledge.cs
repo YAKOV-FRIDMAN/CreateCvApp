@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace יצירת_קורות_חיים.Models
 {
+    [Serializable]
     public class ProfessionalKnowledge 
     {
         public ObservableCollection<object> ProgrammingLanguages { get; set; } = new ObservableCollection<object>();

@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 namespace יצירת_קורות_חיים.Models
 {
+	[Serializable]
 	[XmlRoot(ElementName = "School")]
 	public class School
 	{
@@ -17,6 +18,7 @@ namespace יצירת_קורות_חיים.Models
 		public object Image { get; set; }
 	}
 
+	[Serializable]
 	[XmlRoot(ElementName = "Schools")]
 	public class Schools
 	{

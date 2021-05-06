@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace יצירת_קורות_חיים.ViewModels
 {
+    [Serializable]
     public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

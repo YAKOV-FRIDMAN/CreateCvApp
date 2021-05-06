@@ -7,7 +7,8 @@ using יצירת_קורות_חיים.ViewModels;
 
 namespace יצירת_קורות_חיים.Models
 {
-    public class WorkExperience :ViewModelBase
+    [Serializable]
+    public class WorkExperience //:ViewModelBase
     {
         public string Job { get; set; }
         public string Role { get; set; }

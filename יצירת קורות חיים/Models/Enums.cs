@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace יצירת_קורות_חיים.Models
 {
+    [Serializable]
     public enum Gender
     {
         [Description("נְקֵבָה")]
@@ -28,6 +29,7 @@ namespace יצירת_קורות_חיים.Models
         GenderTransgender,
     }
 
+    [Serializable]
     public enum ProgrammingLanguage
     {
         //CSharp,
@@ -82,6 +84,7 @@ namespace יצירת_קורות_חיים.Models
     //{
 
     //} 
+    [Serializable]
     public enum IDE
     {
         Microsoft,

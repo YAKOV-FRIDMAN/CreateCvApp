@@ -18,24 +18,55 @@ using יצירת_קורות_חיים.Services;
 
 namespace יצירת_קורות_חיים.ViewModels
 {
+    [Serializable]
     class CreateVC : ViewModelBase
     {
-        public ObservableCollection<WorkExperience> WorkExperiences { get; set; }
-        public ObservableCollection<ProgrammingProject> ProgrammingProjects { get; set; }
+
+        private ObservableCollection<WorkExperience> workExperiences;
+
+        public ObservableCollection<WorkExperience> WorkExperiences
+        {
+            get { return workExperiences; }
+            set
+            {
+                workExperiences = value;
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<ProgrammingProject> programmingProjects;
+
+        public ObservableCollection<ProgrammingProject> ProgrammingProjects
+        {
+            get { return programmingProjects; }
+            set
+            {
+                programmingProjects = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<CustomProgrammingLanguages> CustomProgrammingLanguages { get; set; }
-        public ProfessionalKnowledge ProfessionalKnowledge { get; set; }
+
+        private ProfessionalKnowledge professionalKnowledge;
+
+        public ProfessionalKnowledge ProfessionalKnowledge
+        {
+            get { return professionalKnowledge; }
+            set
+            {
+                professionalKnowledge = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<CustomIDE> CustomIDEs { get; set; }
         public ObservableCollection<CustomTechnology> CustomTechnologies { get; set; }
         public ObservableCollection<DesignPattern> DesignPatterns { get; set; }
         public ObservableCollection<string> Companies { get; set; }
-
-
         private ObservableCollection<object> toSelectIde;
-
         public ObservableCollection<string> Citys { get; set; }
         public ObservableCollection<string> Schools { get; set; }
         public ObservableCollection<string> Countries { get; set; }
-
         public ObservableCollection<object> ToSelectIde
         {
             get { return toSelectIde; }
@@ -45,8 +76,6 @@ namespace יצירת_קורות_חיים.ViewModels
                 OnPropertyChanged();
             }
         }
-
-
         private ObservableCollection<object> toSelectedItem;
         public ObservableCollection<object> ToSelectedItem
         {
@@ -57,7 +86,6 @@ namespace יצירת_קורות_חיים.ViewModels
                 OnPropertyChanged();
             }
         }
-
         private ObservableCollection<object> toSelectedItem1;
         public ObservableCollection<object> ToSelectedItem1
         {
@@ -68,9 +96,7 @@ namespace יצירת_קורות_חיים.ViewModels
                 OnPropertyChanged();
             }
         }
-
         private PersonalInformation personamInformation;
-
         public PersonalInformation PersonalInformation
         {
             get { return personamInformation; }
@@ -80,9 +106,7 @@ namespace יצירת_קורות_חיים.ViewModels
                 OnPropertyChanged();
             }
         }
-
         private Education education;
-
         public Education Education
         {
             get { return education; }
@@ -92,9 +116,7 @@ namespace יצירת_קורות_חיים.ViewModels
                 OnPropertyChanged();
             }
         }
-
         private int indexPage;
-
         public int IndexPage
         {
             get { return indexPage; }
@@ -102,39 +124,34 @@ namespace יצירת_קורות_חיים.ViewModels
             {
                 indexPage = value;
                 OnPropertyChanged();
-           
+
                 if (indexPage == 6)
                 {
                     IsPogresssVisivle = true;
                     FunFinish();
-                    LoadWord?.Invoke("", new EventArgs());
+                    LoadWord?.Invoke(null, new EventArgs());
                 }
                 else
                     IsPogresssVisivle = false;
             }
         }
-
         private bool isPogresssVisivle;
-
         public bool IsPogresssVisivle
         {
             get { return isPogresssVisivle; }
-            set 
-            { 
+            set
+            {
                 isPogresssVisivle = value;
                 OnPropertyChanged();
             }
         }
-
-
         public RelayCommand AddWorkExperience { get; set; }
         public RelayCommand AddProject { get; set; }
         public RelayCommand RemoveWorkExperience { get; set; }
         public RelayCommand RemovProject { get; set; }
-
+        public RelayCommand OpenProjectVc { get; set; }
         public event EventHandler LoadWord;
         private string toText;
-
         public string ToText
         {
             get { return toText; }
@@ -144,8 +161,7 @@ namespace יצירת_קורות_חיים.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public  CreateVC()
+        public CreateVC()
         {
             PersonalInformation = new PersonalInformation();
             WorkExperiences = new ObservableCollection<WorkExperience>();
@@ -165,6 +181,7 @@ namespace יצירת_קורות_חיים.ViewModels
             RemoveWorkExperience = new RelayCommand(FuncRemoveWorkExperience);
             AddProject = new RelayCommand(FuncAddProject);
             RemovProject = new RelayCommand(FuncRemovProject);
+            OpenProjectVc = new RelayCommand(FunOpenProjctVc);
             //Citys = new ObservableCollection<string>();
             GetCountries();
             GetCityFromXml();
@@ -175,13 +192,115 @@ namespace יצירת_קורות_חיים.ViewModels
             DeserializeJson();
             //Deserialize();
             // GetCompaniesFromXmlAsync();
-           
+
+            // DeserializeAllVc();
+
+        }
+
+        private void FunOpenProjctVc(object obj)
+        {
+            DeserializeAllVc();
+            LoadWord?.Invoke(null, new EventArgs());
         }
 
         private void FunFinish()
         {
-            GenerateCvToWord generateCvToWord = new GenerateCvToWord("", PersonalInformation);
+            SerializeAllVc();
+
+            GenerateCvToWord generateCvToWord = new GenerateCvToWord("", PersonalInformation, Education, ProfessionalKnowledge, WorkExperiences.ToList(), ProgrammingProjects.ToList());
             IsPogresssVisivle = true;
+        }
+
+        void SerializeAllVc()
+        {
+            string filename = Path.Combine(@"Data\", "CreateCv.bin");
+            Stream ms = File.OpenWrite(filename);
+            BinaryFormatter formatter = new BinaryFormatter();
+            var programmingLanguages = ProfessionalKnowledge.ProgrammingLanguages.Select(_ => ((CustomProgrammingLanguages)_).ProgrammingLanguages).ToList();
+            TestModel testModel = new TestModel
+            {
+                Education = Education,
+                PersonalInformation = PersonalInformation,
+                WorkExperiences = WorkExperiences.ToList()
+            };
+            testModel.ProfessionalKnowledge.ProgrammingLanguages = new ObservableCollection<object>(programmingLanguages);
+            testModel.ProfessionalKnowledge.Technologys = ProfessionalKnowledge.Technologys;
+            testModel.ProfessionalKnowledge.IDEs = new ObservableCollection<object>(ProfessionalKnowledge.IDEs.Select(_ => ((CustomIDE)_).Ide).ToList());
+            testModel.ProfessionalKnowledge.DesignPatterns = ProfessionalKnowledge.DesignPatterns;
+
+
+            foreach (var item in ProgrammingProjects)
+            {
+                testModel.ProgrammingProjects.Add(new ProgrammingProject
+                {
+                    Descritpion = item.Descritpion,
+                    Role = item.Role,
+                    StartProject = item.StartProject,
+                    FinishProject = item.FinishProject,
+                    ProgrammingLanguges = new ObservableCollection<object>(item.ProgrammingLanguges.Select(_ => ((CustomProgrammingLanguages)_).ProgrammingLanguages).ToList()),
+                    DesignPatterns = item.DesignPatterns,
+                    Technologys = item.Technologys
+                });
+            }
+
+            formatter.Serialize(ms, testModel);
+            ms.Flush();
+            ms.Close();
+            ms.Dispose();
+        }
+
+        void DeserializeAllVc()
+        {
+            string filename = Path.Combine(@"Data\", "CreateCv.bin");
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream fs = File.Open(filename, FileMode.Open);
+            object obj = formatter.Deserialize(fs);
+            TestModel testModel = (TestModel)obj;
+            PersonalInformation = testModel.PersonalInformation;
+            Education = testModel.Education;
+            WorkExperiences = new ObservableCollection<WorkExperience>(testModel.WorkExperiences);
+
+            foreach (var item in testModel.ProfessionalKnowledge.ProgrammingLanguages)
+            {
+                ProfessionalKnowledge.ProgrammingLanguages.Add(new CustomProgrammingLanguages((string)item));
+            }
+
+            ProfessionalKnowledge.Technologys = testModel.ProfessionalKnowledge.Technologys;
+
+            foreach (var item in testModel.ProfessionalKnowledge.IDEs)
+            {
+                ProfessionalKnowledge.IDEs.Add(new CustomIDE((string)item));
+            }
+
+            ProfessionalKnowledge.DesignPatterns = testModel.ProfessionalKnowledge.DesignPatterns;
+            ProgrammingProjects = new ObservableCollection<ProgrammingProject>();
+            foreach (var item in testModel.ProgrammingProjects)
+            {
+                ProgrammingProject programmingProject = new ProgrammingProject();
+                programmingProject.Descritpion = item.Descritpion;
+                programmingProject.Role = item.Role;
+                programmingProject.StartProject = item.StartProject;
+                programmingProject.FinishProject = item.FinishProject;
+
+                foreach (var item1 in item.ProgrammingLanguges)
+                {
+                    programmingProject.ProgrammingLanguges.Add(new CustomProgrammingLanguages((string)item1));
+                }
+                if (item.Technologys != null)
+                {
+                    programmingProject.Technologys = new ObservableCollection<object>(item.Technologys);
+                }
+                programmingProject.DesignPatterns = item.DesignPatterns;
+
+
+
+                ProgrammingProjects.Add(programmingProject);
+            }
+
+
+            fs.Flush();
+            fs.Close();
+            fs.Dispose();
         }
 
         //void GwtGenricDataFromXml<T1 , T2>(string path)
@@ -225,8 +344,9 @@ namespace יצירת_קורות_חיים.ViewModels
         }
         static void SeralizeJson(Companys copmp)
         {
-            string filename = HelperFile.GetRootPath();
-            filename += "/Data/CompanyJson.json";
+            string filename = "";//HelperFile.GetRootPath();
+                                 //  filename += "/Data/CompanyJson.json";
+            filename = Path.Combine(@"Data\", "CompanyJson.json");
             File.WriteAllText(filename, JsonConvert.SerializeObject(copmp));
             using (StreamWriter file = File.CreateText(filename))
             {
@@ -238,12 +358,10 @@ namespace יצירת_קורות_חיים.ViewModels
 
         void DeserializeJson()
         {
-            string filename = HelperFile.GetRootPath();
-            filename += "/Data/CompanyJson.json";
+            string filename = Path.Combine(@"Data\", "CompanyJson.json");
             string text = File.ReadAllText(filename);
             var company = JsonConvert.DeserializeObject<Companys>(text);
             Companies = new ObservableCollection<string>(company.Company.Select(_ => _.Name + " " + _.NameInEnglish + " " + _.City).ToList());
-
         }
 
 
@@ -280,10 +398,9 @@ namespace יצירת_קורות_חיים.ViewModels
 
         private void GetDesignPatternsFromXml()
         {
-            string file = HelperFile.GetRootPath();
-            file += "/Data/DesignPattern.xml";
+            string filename = Path.Combine(@"Data\", "DesignPattern.xml");
             XmlSerializer serializer = new XmlSerializer(typeof(DesignPatterns));
-            string text = File.ReadAllText(file);
+            string text = File.ReadAllText(filename);
             using (StringReader reader = new StringReader(text))
             {
                 var designPatterns = (DesignPatterns)serializer.Deserialize(reader);
@@ -293,18 +410,17 @@ namespace יצירת_קורות_חיים.ViewModels
 
         private void GetCustomTechnologiesFromXml()
         {
-            string file = HelperFile.GetRootPath();
-            file += "/Data/Technology.xml";
+            string filename = Path.Combine(@"Data\", "Technology.xml");
             XmlSerializer serializer = new XmlSerializer(typeof(Technologies));
-            string text = File.ReadAllText(file);
-            file = "";
+            string text = File.ReadAllText(filename);
+            filename = "";
             using (StringReader reader = new StringReader(text))
             {
                 var Technologies = (Technologies)serializer.Deserialize(reader);
                 foreach (var item in Technologies.Technology)
                 {
                     var s1 = item.Image;
-                    item.Image = file + @"/Assets/" + s1;
+                    item.Image = filename + @"/Assets/" + s1;
                 }
                 CustomTechnologies = new ObservableCollection<CustomTechnology>(Technologies.Technology.ToList());
             }
@@ -312,10 +428,9 @@ namespace יצירת_קורות_חיים.ViewModels
 
         private void GetSchoolFromXml()
         {
-            string file = HelperFile.GetRootPath();
-            file += @"/Data/School.xml";
+            string filename = Path.Combine(@"Data\", "School.xml");
             XmlSerializer serializer = new XmlSerializer(typeof(Schools));
-            string text = File.ReadAllText(file);
+            string text = File.ReadAllText(filename);
             using (StringReader reader = new StringReader(text))
             {
                 var test = (Schools)serializer.Deserialize(reader);
@@ -338,10 +453,9 @@ namespace יצירת_קורות_חיים.ViewModels
 
         void GetCityFromXml()
         {
-            string file = HelperFile.GetRootPath();
-            file += @"/Data/Citys.xml";
+            string filename = Path.Combine(@"Data\", "Citys.xml");
             XmlSerializer serializer = new XmlSerializer(typeof(CityDada));
-            string text = File.ReadAllText(file);
+            string text = File.ReadAllText(filename);
             using (StringReader reader = new StringReader(text))
             {
                 var test = (CityDada)serializer.Deserialize(reader);

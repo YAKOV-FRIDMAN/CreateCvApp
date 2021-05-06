@@ -19,7 +19,10 @@
     <None Remove="Assets\Windows-Forms.jpg" />
     <None Remove="Assets\wpf.png" />
     <None Remove="Data\Citys.xml" />
+    <None Remove="Data\CompanyJson.json" />
+    <None Remove="Data\DesignPattern.xml" />
     <None Remove="Data\NewCompany.xml" />
+    <None Remove="Data\Technology.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,7 +56,16 @@
     <Content Include="Data\Citys.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\CompanyJson.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\DesignPattern.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\NewCompany.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Technology.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -88,6 +100,15 @@
   <ItemGroup>
     <Reference Include="Syncfusion.DocIO.Base">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.DocIO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfSkinManager.WPF">
+      <HintPath>..\..\..\..\..\Public\Documents\Syncfusion\WPF\19.1.0.54\SampleBrowser\common\bin\Debug\net5.0-windows\Syncfusion.SfSkinManager.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.MaterialDark.WPF">
+      <HintPath>..\..\..\..\..\Public\Documents\Syncfusion\WPF\19.1.0.54\SampleBrowser\common\bin\Debug\net5.0-windows\Syncfusion.Themes.MaterialDark.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.MaterialDarkBlue.WPF">
+      <HintPath>..\..\..\..\..\Public\Documents\Syncfusion\WPF\19.1.0.54\SampleBrowser\common\bin\Debug\net5.0-windows\Syncfusion.Themes.MaterialDarkBlue.WPF.dll</HintPath>
     </Reference>
   </ItemGroup>
 

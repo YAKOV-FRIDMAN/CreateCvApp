@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 namespace יצירת_קורות_חיים.Models
 {
+	[Serializable]
 	[XmlRoot(ElementName = "Technology")]
 	public class CustomTechnology
 	{
@@ -18,6 +19,7 @@ namespace יצירת_קורות_חיים.Models
 		public string Image { get; set; }
 	}
 
+	[Serializable]
 	[XmlRoot(ElementName = "Technologies")]
 	public class Technologies
 	{

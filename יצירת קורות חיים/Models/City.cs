@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 namespace יצירת_קורות_חיים.Models
 {
+	[Serializable]
 	[XmlRoot(ElementName = "ROW")]
 	public class City
     {
@@ -41,6 +42,7 @@ namespace יצירת_קורות_חיים.Models
 		public object שםמועצה { get; set; }
 	}
 
+	[Serializable]
 	[XmlRoot(ElementName = "ROWDATA")]
 	public class CityDada
 	{

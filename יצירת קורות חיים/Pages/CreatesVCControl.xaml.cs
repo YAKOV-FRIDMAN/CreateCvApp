@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using יצירת_קורות_חיים.ViewModels;
+using Syncfusion.SfSkinManager;
 
 namespace יצירת_קורות_חיים.Pages
 {
@@ -30,12 +31,26 @@ namespace יצירת_קורות_חיים.Pages
     {
         public CreatesVCControl()
         {
+            SfSkinManager.SetTheme(this, new Theme() { ThemeName = "Office2019HighContrastWhite" });
+            SfSkinManager.SetVisualStyle(this, VisualStyles.Office2019HighContrastWhite);
             InitializeComponent();
             var d = (CreateVC)DataContext;
             d.LoadWord += (s, e) => 
-            { 
-               richTextBoxAdv.Load(@"C:\Users\user1\source\repos\יצירת קורות חיים\יצירת קורות חיים\bin\Debug\net5.0-windows\Hello World.doc");
+            {
+                this.UpdateDefaultStyle();
+                this.UpdateLayout();
+               // this.OnPropertyChanged(new DependencyPropertyChangedEventArgs());
+               
+               // BindingOperations.GetMultiBindingExpression(this, Rectangle.f).UpdateTarget();
+                // ((MainWindow)System.Windows.Application.Current.MainWindow).ReleaseAllTouchCaptures();
+                //  richTextBoxAdv.Load(@"C:\Users\user1\source\repos\יצירת קורות חיים\יצירת קורות חיים\bin\Debug\net5.0-windows\Hello World.doc");
+               // InitializeComponent();
             };
+        }
+        public CreatesVCControl(string themename)
+        {
+            SfSkinManager.SetTheme(this, new Theme() { ThemeName = themename });
+            InitializeComponent();
         }
 
         private void wizar_SelectedPageChanged(object sender, RoutedEventArgs e)

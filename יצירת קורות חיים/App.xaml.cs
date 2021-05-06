@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using Syncfusion;
 using Syncfusion.Licensing;
+using Syncfusion.SfSkinManager;
+
 namespace יצירת_קורות_חיים
 {
     /// <summary>

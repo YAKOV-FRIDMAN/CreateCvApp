@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using Syncfusion.SfSkinManager;
 
 namespace יצירת_קורות_חיים
 {
@@ -31,13 +32,28 @@ namespace יצירת_קורות_חיים
     {
         public MainWindow()
         {
-            InitializeComponent();
+            SfSkinManager.ApplyStylesOnApplication = true;
+            //try
+            //{
 
+            //}
+            //catch (Exception)
+            //{
+            //    throw new ArgumentException(Environment.GetResourceString(GetResourceName(resource)));
+
+            //}
+          //  SfSkinManager.SetTheme(this, new Theme() { ThemeName = "FluentLight" });
+            InitializeComponent();
+            //  SfSkinManager.SetVisualStyle(this, VisualStyles.Office2019Colorful);
             var userControl = new HomeControl();
             contentView.Content = userControl.Content;
 
         }
+        public MainWindow(string themename)
+        {
+            InitializeComponent();
+        }
 
-       
+
     }
 }

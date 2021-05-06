@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace יצירת_קורות_חיים.Models
 {
+	[Serializable]
 	[XmlRoot(ElementName = "DesignPattern")]
 	public class DesignPattern
 	{
@@ -11,6 +13,7 @@ namespace יצירת_קורות_חיים.Models
 		public string Name { get; set; }
 	}
 
+	[Serializable]
 	[XmlRoot(ElementName = "DesignPatterns")]
 	public class DesignPatterns
 	{

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace יצירת_קורות_חיים.Models
 {
+    [Serializable]
     public class Education
     {
         public string School { get; set; }
