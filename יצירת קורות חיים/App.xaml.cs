@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,7 @@ namespace יצירת_קורות_חיים
     /// </summary>
     public partial class App : Application
     {
+        public static readonly string path = Directory.GetCurrentDirectory();
         public App()
         {
             //SyncfusionLicenseProvider.RegisterLicense("@31392e312e30VhY82/n8xKMo1ER5qDxXDcZ3O/rtaJn9YDmpq4WkzT0=");

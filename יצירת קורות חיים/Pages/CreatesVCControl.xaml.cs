@@ -40,7 +40,7 @@ namespace יצירת_קורות_חיים.Pages
             d.LoadWord += (s, e) =>
             {
                  var path = System.IO.Path.Combine("", "Hello World.doc");
-                 richTextBoxAdv.Load(@"C:\Users\user1\source\repos\יצירת קורות חיים\יצירת קורות חיים\bin\Debug\net5.0-windows\Hello World.doc");
+                 richTextBoxAdv.Load(@$"{App.path}\Hello World.doc");
             };
         }
         public CreatesVCControl(string themename)

@@ -10,6 +10,7 @@ using Syncfusion.DocToPDFConverter;
 using Syncfusion.Pdf;
 using יצירת_קורות_חיים.Models;
 using System.Windows;
+using System.IO;
 //using System.Collections.ObjectModel;
 
 namespace יצירת_קורות_חיים.Services
@@ -310,7 +311,7 @@ namespace יצירת_קורות_חיים.Services
 
                     if (true)
                     {
-                        document.Save("Hello World.doc");
+                        document.Save(@$"{App.path}\Hello World.doc");
                         MessageBox.Show("הקובץ נשמר בהצלחה");
                     }
                 }

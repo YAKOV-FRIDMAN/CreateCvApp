@@ -1,4 +1,4 @@
-#region Copyright Syncfusion Inc. 2001-2021.
+ο»Ώ#region Copyright Syncfusion Inc. 2001-2021.
 // Copyright Syncfusion Inc. 2001-2021. All rights reserved.
 // Use of this code is subject to the terms of our license.
 // A copy of the current license can be obtained at any time by e-mailing
@@ -19,101 +19,101 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace ιφιψϊ_χεψεϊ_ηιιν
+namespace Χ™Χ¦Χ™Χ¨Χª_Χ§Χ•Χ¨Χ•Χª_Χ—Χ™Χ™Χ
 {
-	public class Category
-	{
-		private string name;
-		public string Name
-		{
-			get { return name; }
-			set { name = value; }
-		}
+    public class Category
+    {
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
-		private object icon;
-		public object Icon
-		{
-			get { return icon; }
-			set { icon = value; }
-		}
-	}
-	public class NavigationDrawerDataBindingViewModel : NotificationObject
-	{
-		private object categorySelectedItem;
-		public object CategorySelectedItem
-		{
-			get { return categorySelectedItem; }
-			set { categorySelectedItem = value; }
-		}
+        private object icon;
+        public object Icon
+        {
+            get { return icon; }
+            set { icon = value; }
+        }
+    }
+    public class NavigationDrawerDataBindingViewModel : NotificationObject
+    {
+        private object categorySelectedItem;
+        public object CategorySelectedItem
+        {
+            get { return categorySelectedItem; }
+            set { categorySelectedItem = value; }
+        }
 
-		Binding pathFillBinding = new Binding();
-		public ObservableCollection<Category> Categories { get; set; }
-		public NavigationDrawerDataBindingViewModel()
-		{
-			pathFillBinding.Path = new PropertyPath(TextBlock.ForegroundProperty);
-			pathFillBinding.RelativeSource = new RelativeSource { Mode = RelativeSourceMode.Self };
-			pathFillBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+        Binding pathFillBinding = new Binding();
+        public ObservableCollection<Category> Categories { get; set; }
+        public NavigationDrawerDataBindingViewModel()
+        {
+            pathFillBinding.Path = new PropertyPath(TextBlock.ForegroundProperty);
+            pathFillBinding.RelativeSource = new RelativeSource { Mode = RelativeSourceMode.Self };
+            pathFillBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
 
-			PackIcon homeIcon = new PackIcon();
-			homeIcon.Kind = PackIconKind.Home;
-			homeIcon.Height = 18;
-			homeIcon.Width = 16;
-			homeIcon.HorizontalAlignment = HorizontalAlignment.Center;
-			homeIcon.VerticalAlignment = VerticalAlignment.Center;
-			homeIcon.SetBinding(Path.DataProperty, pathFillBinding);
+            PackIcon homeIcon = new PackIcon();
+            homeIcon.Kind = PackIconKind.Home;
+            homeIcon.Height = 18;
+            homeIcon.Width = 16;
+            homeIcon.HorizontalAlignment = HorizontalAlignment.Center;
+            homeIcon.VerticalAlignment = VerticalAlignment.Center;
+            homeIcon.SetBinding(Path.DataProperty, pathFillBinding);
 
-			TextBlock textBlock = new TextBlock();
-			textBlock.FontSize = 20;
-			textBlock.Text = "αιϊ";
-			textBlock.FontWeight = FontWeight.FromOpenTypeWeight(20);
+            TextBlock textBlock = new TextBlock();
+            textBlock.FontSize = 20;
+            textBlock.Text = "Χ‘Χ™Χª";
+            textBlock.FontWeight = FontWeight.FromOpenTypeWeight(20);
 
 
-			PackIcon penIcon = new PackIcon();
-			penIcon.Kind = PackIconKind.Pen;
-			penIcon.Height = 18;
-			penIcon.Width = 16;
-			penIcon.HorizontalAlignment = HorizontalAlignment.Center;
-			penIcon.VerticalAlignment = VerticalAlignment.Center;
-			penIcon.SetBinding(Path.DataProperty, pathFillBinding);
-			
-			PackIcon bookIcon = new PackIcon();
-			bookIcon.Kind = PackIconKind.Book;
-			bookIcon.Height = 18;
-			bookIcon.Width = 16;
-			bookIcon.HorizontalAlignment = HorizontalAlignment.Center;
-			bookIcon.VerticalAlignment = VerticalAlignment.Center;
-			bookIcon.SetBinding(Path.DataProperty, pathFillBinding);
-		
-			PackIcon webIcon = new PackIcon();
-			webIcon.Kind = PackIconKind.Web;
-			webIcon.Height = 18;
-			webIcon.Width = 16;
-			webIcon.HorizontalAlignment = HorizontalAlignment.Center;
-			webIcon.VerticalAlignment = VerticalAlignment.Center;
-			webIcon.SetBinding(Path.DataProperty, pathFillBinding);
+            PackIcon penIcon = new PackIcon();
+            penIcon.Kind = PackIconKind.Pen;
+            penIcon.Height = 18;
+            penIcon.Width = 16;
+            penIcon.HorizontalAlignment = HorizontalAlignment.Center;
+            penIcon.VerticalAlignment = VerticalAlignment.Center;
+            penIcon.SetBinding(Path.DataProperty, pathFillBinding);
 
-			Categories = new ObservableCollection<Category>();
-			Categories.Add(new Category()
-			{
-				Name = "αιϊ",
-				Icon = homeIcon
-			});
-			Categories.Add(new Category()
-			{
-				Name = "ιφιψϊ χεψεϊ ηιιν",
-				Icon = penIcon
-			});
-			Categories.Add(new Category()
-			{
-				Name = "ϊαπιϊ ηιιν",
-				Icon = bookIcon
-			});
-			Categories.Add(new Category()
-			{
-				Name = "ιφιψϊ ΰϊψ ϊγξιϊ",
-				Icon = webIcon
-			});
-			CategorySelectedItem = Categories[0];
-		}
-	}
+            PackIcon bookIcon = new PackIcon();
+            bookIcon.Kind = PackIconKind.Book;
+            bookIcon.Height = 18;
+            bookIcon.Width = 16;
+            bookIcon.HorizontalAlignment = HorizontalAlignment.Center;
+            bookIcon.VerticalAlignment = VerticalAlignment.Center;
+            bookIcon.SetBinding(Path.DataProperty, pathFillBinding);
+
+            PackIcon webIcon = new PackIcon();
+            webIcon.Kind = PackIconKind.Web;
+            webIcon.Height = 18;
+            webIcon.Width = 16;
+            webIcon.HorizontalAlignment = HorizontalAlignment.Center;
+            webIcon.VerticalAlignment = VerticalAlignment.Center;
+            webIcon.SetBinding(Path.DataProperty, pathFillBinding);
+
+            Categories = new ObservableCollection<Category>();
+            Categories.Add(new Category()
+            {
+                Name = "Χ‘Χ™Χª",
+                Icon = homeIcon
+            });
+            Categories.Add(new Category()
+            {
+                Name = "Χ™Χ¦Χ™Χ¨Χª Χ§Χ•Χ¨Χ•Χª Χ—Χ™Χ™Χ",
+                Icon = penIcon
+            });
+            Categories.Add(new Category()
+            {
+                Name = "ΧªΧ‘Χ Χ™Χª Χ—Χ™Χ™Χ",
+                Icon = bookIcon
+            });
+            Categories.Add(new Category()
+            {
+                Name = "Χ™Χ¦Χ™Χ¨Χª ΧΧªΧ¨ ΧªΧ“ΧΧ™Χª",
+                Icon = webIcon
+            });
+            CategorySelectedItem = Categories[0];
+        }
+    }
 }
